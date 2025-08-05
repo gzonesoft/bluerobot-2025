@@ -1,0 +1,50 @@
+{
+  "name": "balancestage-quadalign-x-website",
+  "version": "2.0.0",
+  "description": "BalanceStage QuadAlign X 제품 공식 웹사이트",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "serve": "npx serve .",
+    "dev": "npx live-server --port=8000",
+    "build": "echo 'Static website - no build process needed'",
+    "lint": "echo 'Linting not configured yet'"
+  },
+  "keywords": [
+    "BlueRobot",
+    "BalanceStage",
+    "QuadAlign X",
+    "precision alignment",
+    "manufacturing",
+    "4-axis control",
+    "industrial automation"
+  ],
+  "author": {
+    "name": "BlueRobot",
+    "email": "ces@bluerobot.co.kr",
+    "url": "https://www.bluerobot.co.kr"
+  },
+  "license": "Proprietary",
+  "homepage": ".",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bluerobot/balancestage-website.git"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "serve": "^14.2.0"
+  },
+  "dependencies": {},
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "> 1%",
+    "not dead"
+  ],
+  "config": {
+    "port": 8000,
+    "host": "localhost"
+  }
+}

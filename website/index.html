@@ -4,830 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BalanceStage QuadAlign X - 블루로봇</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
-            color: #0F172A;
-            background: #FFFFFF;
-        }
-
-        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css');
-
-        /* Header */
-        .header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            border-bottom: 1px solid rgba(15, 23, 42, 0.08);
-        }
-
-        .nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo img {
-            height: 32px;
-            width: auto;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #0F172A;
-            font-weight: 500;
-            transition: color 0.2s ease;
-        }
-
-        .nav-links a:hover {
-            color: #38BDF8;
-        }
-
-        /* Hero Section - DARK THEME */
-        .hero {
-            color: #FFFFFF;
-            padding: 120px 2rem 80px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            background: #0F172A;
-        }
-
-        .hero-video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 1;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(
-                135deg,
-                rgba(15, 23, 42, 0.8) 0%,
-                rgba(15, 23, 42, 0.6) 50%,
-                rgba(15, 23, 42, 0.8) 100%
-            );
-            z-index: 2;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(
-                ellipse at center,
-                rgba(15, 23, 42, 0.4) 0%,
-                rgba(15, 23, 42, 0.8) 100%
-            );
-            z-index: 2;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 3;
-            width: 100%;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: #FFFFFF;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            font-weight: 300;
-            margin-bottom: 2rem;
-            color: #94A3B8;
-            line-height: 1.8;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-block;
-            transition: all 0.2s ease;
-            cursor: pointer;
-        }
-
-        .btn-primary {
-            background: #2563EB;
-            color: #FFFFFF;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
-        }
-
-        .btn-primary:hover {
-            background: #1D4ED8;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.5);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: #38BDF8;
-            border: 2px solid #38BDF8;
-        }
-
-        .btn-secondary:hover {
-            background: #38BDF8;
-            color: #0F172A;
-        }
-
-
-
-        .product-logo {
-            display: flex;
-            justify-content: center;
-            margin: 2rem 0;
-        }
-
-        .product-logo img {
-            height: 60px;
-            width: auto;
-        }
-
-        .company-logo {
-            width: 150px;
-            height: auto;
-            margin: 0 auto 2rem;
-            display: block;
-        }
-
-        /* Section Navigation */
-        .section-nav {
-            font-size: 0.9rem;
-            font-weight: 300;
-            margin-bottom: 1rem;
-            text-align: left;
-            opacity: 0.7;
-        }
-
-        .section-nav.dark {
-            color: #94A3B8;
-        }
-
-        .section-nav.light {
-            color: #64748B;
-        }
-
-        /* Section Styles */
-        .section {
-            padding: 80px 2rem;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 3rem;
-            color: #0F172A;
-        }
-
-        .section-subtitle {
-            font-size: 1.2rem;
-            font-weight: 300;
-            text-align: center;
-            margin-bottom: 4rem;
-            color: #64748B;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* Problem Solution Section - LIGHT THEME */
-        .problem-solution {
-            background: #FFFFFF;
-        }
-
-        .problem-solution .section-title {
-            color: #0F172A;
-        }
-
-        .problem-solution .section-subtitle {
-            color: #64748B;
-        }
-
-        .comparison {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            margin-top: 3rem;
-        }
-
-        .comparison-item {
-            background: #F8FAFC;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
-        }
-
-        .comparison-item h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            color: #0F172A;
-        }
-
-        .comparison-item ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .comparison-item ul li {
-            color: #64748B;
-            margin-bottom: 0.5rem;
-            padding-left: 1.5rem;
-            position: relative;
-        }
-
-        .comparison-item.before ul li::before {
-            content: '×';
-            position: absolute;
-            left: 0;
-            color: #EF4444;
-            font-weight: bold;
-        }
-
-        .comparison-item.after ul li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: #10B981;
-            font-weight: bold;
-        }
-            color: #0F172A;
-        }
-
-        .comparison-item.before {
-            border-left: 4px solid #EF4444;
-        }
-
-        .comparison-item.after {
-            border-left: 4px solid #10B981;
-        }
-
-        /* Features Section - DARK THEME */
-        #features {
-            background: #0F172A;
-        }
-
-        #features .section-title {
-            color: #FFFFFF;
-        }
-
-        #features .section-subtitle {
-            color: #94A3B8;
-        }
-
-        .feature-card {
-            background: #1E293B;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            border: 1px solid #334155;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-            background: #334155;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            background: #2563EB;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1rem;
-            color: #FFFFFF;
-            font-size: 1.5rem;
-        }
-
-        .feature-card h3 {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-            color: #FFFFFF;
-        }
-
-        .feature-card p {
-            color: #94A3B8;
-            line-height: 1.6;
-        }
-            background: #DBEAFE;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1rem;
-            color: #2563EB;
-            font-size: 1.5rem;
-            transition: all 0.2s ease;
-        }
-
-        .feature-card:hover .feature-icon {
-            background: #2563EB;
-            color: #FFFFFF;
-        }
-
-        .feature-card h3 {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-            color: #FFFFFF;
-        }
-
-        .feature-card p {
-            color: #94A3B8;
-            font-weight: 300;
-        }
-
-        /* Demo Section - LIGHT THEME */
-        .demo-section {
-            background: #FFFFFF;
-            color: #0F172A;
-        }
-
-        #demo .section-title {
-            color: #0F172A;
-        }
-
-        #demo .section-subtitle {
-            color: #64748B;
-        }
-
-        .demo-container {
-            text-align: center;
-        }
-
-        .demo-video-container {
-            width: 100%;
-            max-width: 800px;
-            margin: 2rem auto;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 8px 30px rgba(15, 23, 42, 0.1);
-            background: #F8FAFC;
-        }
-
-        .demo-video-container iframe {
-            width: 100%;
-            height: 450px;
-            border: none;
-        }
-
-        .demo-video-placeholder {
-            width: 100%;
-            max-width: 800px;
-            height: 450px;
-            background: #F8FAFC;
-            border-radius: 12px;
-            margin: 2rem auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid #E2E8F0;
-        }
-
-        .play-icon {
-            width: 80px;
-            height: 80px;
-            background: #2563EB;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: #FFFFFF;
-        }
-
-        .play-icon:hover {
-            background: #1D4ED8;
-            transform: scale(1.1);
-        }
-
-        /* Future Solutions Section - LIGHT THEME */
-        .future-solutions {
-            background: #FFFFFF;
-            color: #0F172A;
-        }
-
-        .future-solutions .section-title {
-            color: #0F172A;
-        }
-
-        .future-solutions .section-subtitle {
-            color: #64748B;
-        }
-
-        .future-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 3rem;
-            margin-top: 3rem;
-        }
-
-        .future-card {
-            background: #F8FAFC;
-            border-radius: 20px;
-            padding: 3rem;
-            box-shadow: 0 8px 30px rgba(15, 23, 42, 0.08);
-            border: 1px solid #E2E8F0;
-        }
-
-        .future-icon {
-            width: 80px;
-            height: 80px;
-            background: #2563EB;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            color: #FFFFFF;
-        }
-
-        .future-card h3 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 2rem;
-            color: #0F172A;
-        }
-
-        .future-content h4 {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: #0F172A;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .future-content p {
-            line-height: 1.7;
-            color: #9CA3AF;
-        }
-
-        .future-content ul li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: #10B981;
-            font-weight: bold;
-        }
-
-        .future-features {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .feature-item {
-            background: #FFFFFF;
-            border-radius: 16px;
-            padding: 2rem;
-            position: relative;
-            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
-        }
-
-        .feature-number {
-            position: absolute;
-            top: -10px;
-            right: 20px;
-            background: #2563EB;
-            color: #FFFFFF;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 0.9rem;
-        }
-
-        .feature-item h4 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.8rem;
-            color: #0F172A;
-        }
-
-        .feature-item p {
-            font-size: 0.95rem;
-            line-height: 1.6;
-            color: #9CA3AF;
-        }
-
-        .future-vision {
-            background: #FFFFFF;
-            border-radius: 20px;
-            padding: 3rem;
-            margin-top: 4rem;
-            text-align: center;
-            box-shadow: 0 8px 30px rgba(15, 23, 42, 0.1);
-        }
-
-        .future-vision h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: #0F172A;
-        }
-
-        .future-vision p {
-            font-size: 1.2rem;
-            line-height: 1.8;
-            color: #9CA3AF;
-        }
-
-        .future-vision strong {
-            color: #2563EB;
-            font-weight: 700;
-        }
-        .applications-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        /* Applications Section - DARK THEME */
-        #applications {
-            background: #0F172A;
-        }
-
-        #applications .section-title {
-            color: #FFFFFF;
-        }
-
-        #applications .section-subtitle {
-            color: #94A3B8;
-        }
-
-        .application-item {
-            text-align: center;
-            padding: 2rem;
-            background: #1E293B;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            transition: transform 0.2s ease;
-            border: 1px solid #334155;
-        }
-
-        .application-item:hover {
-            transform: translateY(-5px);
-            background: #334155;
-        }
-
-        .application-item h3 {
-            color: #FFFFFF;
-            margin-bottom: 1rem;
-        }
-
-        .application-item p {
-            color: #94A3B8;
-        }
-
-        .application-icon {
-            width: 80px;
-            height: 80px;
-            background: #2563EB;
-            border-radius: 16px;
-            margin: 0 auto 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #FFFFFF;
-            font-size: 2rem;
-        }
-
-        .application-item h3 {
-            color: #0F172A;
-            margin-bottom: 1rem;
-        }
-
-        .application-item p {
-            color: #9CA3AF;
-        }
-
-        /* Roadmap Section - LIGHT THEME */
-        .roadmap {
-            background: #FFFFFF;
-            color: #0F172A;
-        }
-
-        .roadmap-content {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .roadmap .section-title {
-            color: #0F172A;
-        }
-
-        .roadmap p {
-            color: #64748B;
-            font-weight: 300;
-        }
-            color: #9CA3AF;
-        }
-
-        .roadmap strong {
-            color: #2563EB;
-        }
-
-        /* Company Section - DARK THEME */
-        .company {
-            background: #0F172A;
-        }
-
-        .company .section-title {
-            color: #FFFFFF;
-        }
-
-        .company-content {
-            max-width: 700px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .company p {
-            color: #94A3B8;
-        }
-
-        /* Contact Section - LIGHT THEME */
-        .contact {
-            background: #FFFFFF;
-            color: #0F172A;
-        }
-
-        .contact .section-title {
-            color: #0F172A;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .contact-item {
-            background: #F8FAFC;
-            padding: 2rem;
-            border-radius: 12px;
-            text-align: center;
-            border: 1px solid #E2E8F0;
-        }
-
-        .contact-item h3 {
-            margin-bottom: 1rem;
-            color: #2563EB;
-        }
-
-        .contact-item p {
-            color: #64748B;
-            margin-bottom: 1rem;
-        }
-
-        .contact-item a {
-            color: #2563EB;
-            text-decoration: none;
-            transition: color 0.2s ease;
-        }
-
-        .contact-item a:hover {
-            color: #38BDF8;
-        }
-
-        /* Footer - LIGHT THEME */
-        .footer {
-            background: #F8FAFC;
-            color: #64748B;
-            text-align: center;
-            padding: 2rem;
-            border-top: 1px solid #E2E8F0;
-        }
-            color: #9CA3AF;
-            text-align: center;
-            padding: 2rem;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero {
-                min-height: 80vh;
-                padding: 100px 1rem 60px;
-            }
-            
-            .hero-video {
-                object-position: center center;
-            }
-            
-            .comparison {
-                grid-template-columns: 1fr;
-            }
-            
-            .future-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            
-            .future-card {
-                padding: 2rem;
-            }
-            
-            .future-vision {
-                padding: 2rem;
-            }
-            
-            .nav-links {
-                display: none;
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/hero.css">
+    <link rel="stylesheet" href="css/buttons.css">
+    <link rel="stylesheet" href="css/sections.css">
+    <link rel="stylesheet" href="css/future.css">
+    <link rel="stylesheet" href="css/footer.css">
+    
+    <!-- Tailwind Custom Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563EB',
+                        secondary: '#DBEAFE',
+                        accent: '#38BDF8',
+                        dark: '#0F172A',
+                        'dark-light': '#1E293B',
+                        'dark-lighter': '#334155',
+                        'text-main': '#0F172A',
+                        'text-sub': '#64748B',
+                        'text-light': '#94A3B8'
+                    },
+                    fontFamily: {
+                        'pretendard': ['Pretendard', 'system-ui', 'sans-serif']
+                    }
+                }
             }
         }
-    </style>
+    </script>
 </head>
-<body>
+<body class="font-pretendard">
     <!-- Header -->
     <header class="header">
         <nav class="nav">
             <div class="logo">
-                <img src="../assets/logo/Bluerobot_CI.png" alt="BlueRobot" />
+                <img src="assets/logo/Bluerobot_CI.png" alt="BlueRobot" />
             </div>
             <ul class="nav-links">
                 <li><a href="#features">기술특징</a></li>
@@ -842,16 +60,18 @@
     <!-- Hero Section -->
     <section class="hero">
         <video class="hero-video" autoplay muted loop playsinline>
-            <source src="../assets/video/Herosection.mp4" type="video/mp4">
+            <source src="assets/video/Herosection.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
         <div class="hero-content">
             <div class="section-nav dark">#introduction</div>
             <div class="product-logo">
-                <img src="../assets/logo/Balancestage_BI.png" alt="BalanceStage" />
+                <img src="assets/logo/Balancestage_BI.png" alt="BalanceStage" />
             </div>
-            <h1>정렬이 쉬워지면,<br>제조는 달라집니다.</h1>
-            <p>
+            <h1 class="text-5xl lg:text-6xl font-bold mb-6 text-white">
+                정렬이 쉬워지면,<br>제조는 달라집니다.
+            </h1>
+            <p class="text-xl font-light mb-8 text-text-light leading-relaxed">
                 BalanceStage QuadAlign X는<br>
                 4개의 축(X, Y, Pitch, Roll)을 하나의 제어 동작으로 통합한 세계 최초의 고하중 동기 정렬 플랫폼입니다.<br><br>
                 정렬은 이제 수동 조작이 아닌 한 번의 동작으로 완성되는 지능형 공정입니다.
@@ -864,39 +84,76 @@
         </div>
     </section>
     <!-- Problem & Solution -->
-    <section class="section problem-solution">
+    <section class="section problem-solution bg-white">
         <div class="container">
             <div class="section-nav light">#problem-solution</div>
-            <h2 class="section-title">기존 정렬 시스템은 복잡했습니다.<br>우리는 정렬을 '플랫폼'으로 다시 설계했습니다.</h2>
-            <p class="section-subtitle">
+            <h2 class="text-4xl font-bold text-center mb-12 text-dark">
+                기존 정렬 시스템은 복잡했습니다.<br>우리는 정렬을 '플랫폼'으로 다시 설계했습니다.
+            </h2>
+            <p class="text-xl font-light text-center mb-16 text-text-sub max-w-4xl mx-auto">
                 정밀 제조에서 가장 어려운 과제는 고하중 환경에서의 각도 정렬(Pitch/Roll)입니다.<br>
                 기존 방식은 복잡한 병렬 구조나 숙련자 중심의 반복 조정에 의존해 왔습니다.
             </p>
             
-            <div class="comparison">
-                <div class="comparison-item before">
-                    <h3>🔴 기존 방식</h3>
-                    <ul>
-                        <li>복잡한 병렬 구조</li>
-                        <li>숙련자 중심의 반복 조정</li>
-                        <li>축 간 간섭으로 인한 오차</li>
-                        <li>긴 정렬 시간</li>
-                        <li>높은 학습 비용</li>
+            <div class="grid lg:grid-cols-2 gap-12 mt-12">
+                <div class="bg-gray-50 p-8 rounded-xl shadow-lg border-l-4 border-red-500">
+                    <h3 class="text-xl font-semibold mb-4 text-dark flex items-center">
+                        <span class="text-red-500 mr-2">🔴</span> 기존 방식
+                    </h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start text-text-sub">
+                            <span class="text-red-500 mr-3 font-bold">×</span>
+                            복잡한 병렬 구조
+                        </li>
+                        <li class="flex items-start text-text-sub">
+                            <span class="text-red-500 mr-3 font-bold">×</span>
+                            숙련자 중심의 반복 조정
+                        </li>
+                        <li class="flex items-start text-text-sub">
+                            <span class="text-red-500 mr-3 font-bold">×</span>
+                            축 간 간섭으로 인한 오차
+                        </li>
+                        <li class="flex items-start text-text-sub">
+                            <span class="text-red-500 mr-3 font-bold">×</span>
+                            긴 정렬 시간
+                        </li>
+                        <li class="flex items-start text-text-sub">
+                            <span class="text-red-500 mr-3 font-bold">×</span>
+                            높은 학습 비용
+                        </li>
                     </ul>
                 </div>
-                <div class="comparison-item after">
-                    <h3>🟢 QuadAlign X</h3>
-                    <ul>
-                        <li>4축 통합 제어 플랫폼</li>
-                        <li>자동 정렬 및 보정</li>
-                        <li>실시간 간섭 보정 알고리즘</li>
-                        <li>5초 이내 정렬 완료</li>
-                        <li>직관적인 조작</li>
+                
+                <div class="bg-gray-50 p-8 rounded-xl shadow-lg border-l-4 border-green-500">
+                    <h3 class="text-xl font-semibold mb-4 text-dark flex items-center">
+                        <span class="text-green-500 mr-2">🟢</span> QuadAlign X
+                    </h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start text-text-sub">
+                            <span class="text-green-500 mr-3 font-bold">✓</span>
+                            4축 통합 제어 플랫폼
+                        </li>
+                        <li class="flex items-start text-text-sub">
+                            <span class="text-green-500 mr-3 font-bold">✓</span>
+                            자동 정렬 및 보정
+                        </li>
+                        <li class="flex items-start text-text-sub">
+                            <span class="text-green-500 mr-3 font-bold">✓</span>
+                            실시간 간섭 보정 알고리즘
+                        </li>
+                        <li class="flex items-start text-text-sub">
+                            <span class="text-green-500 mr-3 font-bold">✓</span>
+                            5초 이내 정렬 완료
+                        </li>
+                        <li class="flex items-start text-text-sub">
+                            <span class="text-green-500 mr-3 font-bold">✓</span>
+                            직관적인 조작
+                        </li>
                     </ul>
                 </div>
             </div>
             
-            <div style="text-align: center; margin-top: 3rem; font-size: 1.3rem; font-weight: 600; color: #2563EB;">
+            <div class="text-center mt-12 text-xl font-semibold text-primary">
                 BalanceStage QuadAlign X는 4개의 축을 단일 플랫폼에서 동기화하고,<br>
                 축 간 간섭을 실시간으로 보정하여, 정렬의 개념 자체를 바꾸었습니다.
             </div>
@@ -904,78 +161,86 @@
     </section>
 
     <!-- Features -->
-    <section id="features" class="section">
+    <section id="features" class="section bg-dark">
         <div class="container">
             <div class="section-nav dark">#core-features</div>
-            <h2 class="section-title">더한 것이 아니라, 묶었습니다.</h2>
-            <p class="section-subtitle">정렬의 복잡함을 하나의 제어로 바꾼 것입니다.</p>
+            <h2 class="text-4xl font-bold text-center mb-6 text-white">더한 것이 아니라, 묶었습니다.</h2>
+            <p class="text-xl font-light text-center mb-16 text-text-light">정렬의 복잡함을 하나의 제어로 바꾼 것입니다.</p>
             
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
-                    <h3>4축 통합 제어 플랫폼</h3>
-                    <p>X, Y, Pitch, Roll 4개 축을 하나의 제어 시스템으로 통합하여 복잡한 정렬 과정을 단순화했습니다.</p>
+            <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8 mt-12">
+                <div class="bg-dark-light p-8 rounded-xl shadow-xl border border-dark-lighter hover:bg-dark-lighter transition-all duration-200 hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-primary rounded-xl flex items-center justify-center mb-4 text-white text-2xl">
+                        ⚡
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-white">4축 통합 제어 플랫폼</h3>
+                    <p class="text-text-light font-light">X, Y, Pitch, Roll 4개 축을 하나의 제어 시스템으로 통합하여 복잡한 정렬 과정을 단순화했습니다.</p>
                 </div>
                 
-                <div class="feature-card">
-                    <div class="feature-icon">🎯</div>
-                    <h3>±5μm 정밀도</h3>
-                    <p>100kg 고하중 환경에서도 ±5μm 수준의 정밀도를 유지하며 반복성을 보장합니다.</p>
+                <div class="bg-dark-light p-8 rounded-xl shadow-xl border border-dark-lighter hover:bg-dark-lighter transition-all duration-200 hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-primary rounded-xl flex items-center justify-center mb-4 text-white text-2xl">
+                        🎯
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-white">±5μm 정밀도</h3>
+                    <p class="text-text-light font-light">100kg 고하중 환경에서도 ±5μm 수준의 정밀도를 유지하며 반복성을 보장합니다.</p>
                 </div>
                 
-                <div class="feature-card">
-                    <div class="feature-icon">⏱️</div>
-                    <h3>5초 이내 보정 완료</h3>
-                    <p>정렬 조건을 자동으로 감지하고 5초 이내에 모든 축의 보정을 동시에 완료합니다.</p>
+                <div class="bg-dark-light p-8 rounded-xl shadow-xl border border-dark-lighter hover:bg-dark-lighter transition-all duration-200 hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-primary rounded-xl flex items-center justify-center mb-4 text-white text-2xl">
+                        ⏱️
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-white">5초 이내 보정 완료</h3>
+                    <p class="text-text-light font-light">정렬 조건을 자동으로 감지하고 5초 이내에 모든 축의 보정을 동시에 완료합니다.</p>
                 </div>
                 
-                <div class="feature-card">
-                    <div class="feature-icon">🧠</div>
-                    <h3>실시간 간섭 보정</h3>
-                    <p>축 간 간섭을 실시간으로 감지하고 보정하는 내장 알고리즘으로 정확한 정렬을 보장합니다.</p>
+                <div class="bg-dark-light p-8 rounded-xl shadow-xl border border-dark-lighter hover:bg-dark-lighter transition-all duration-200 hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-primary rounded-xl flex items-center justify-center mb-4 text-white text-2xl">
+                        🧠
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-white">실시간 간섭 보정</h3>
+                    <p class="text-text-light font-light">축 간 간섭을 실시간으로 감지하고 보정하는 내장 알고리즘으로 정확한 정렬을 보장합니다.</p>
                 </div>
                 
-                <div class="feature-card">
-                    <div class="feature-icon">🔄</div>
-                    <h3>확장 가능한 구조</h3>
-                    <p>Z축, Yaw축으로 확장 가능한 진화형 구조로 미래의 요구사항에 대응합니다.</p>
+                <div class="bg-dark-light p-8 rounded-xl shadow-xl border border-dark-lighter hover:bg-dark-lighter transition-all duration-200 hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-primary rounded-xl flex items-center justify-center mb-4 text-white text-2xl">
+                        🔄
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-white">확장 가능한 구조</h3>
+                    <p class="text-text-light font-light">Z축, Yaw축으로 확장 가능한 진화형 구조로 미래의 요구사항에 대응합니다.</p>
                 </div>
                 
-                <div class="feature-card">
-                    <div class="feature-icon">💎</div>
-                    <h3>세계 최초 기술</h3>
-                    <p>4축 동기 정렬 플랫폼으로서 세계 최초의 혁신적인 기술을 구현했습니다.</p>
+                <div class="bg-dark-light p-8 rounded-xl shadow-xl border border-dark-lighter hover:bg-dark-lighter transition-all duration-200 hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-primary rounded-xl flex items-center justify-center mb-4 text-white text-2xl">
+                        💎
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-white">세계 최초 기술</h3>
+                    <p class="text-text-light font-light">4축 동기 정렬 플랫폼으로서 세계 최초의 혁신적인 기술을 구현했습니다.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Demo Section -->
-    <section id="demo" class="section demo-section">
+    <section id="demo" class="section demo-section bg-white">
         <div class="container">
             <div class="demo-container">
                 <div class="section-nav light">#live-demo</div>
-                <h2 class="section-title" style="color: #0F172A;">실시간 4축 정렬 시연</h2>
-                <p class="section-subtitle" style="color: #9CA3AF;">
+                <h2 class="text-4xl font-bold text-center mb-6 text-dark">실시간 4축 정렬 시연</h2>
+                <p class="text-xl font-light text-center mb-16 text-text-sub max-w-4xl mx-auto">
                     QuadAlign X는 대상물의 위치 오차를 실시간으로 감지하고<br>
                     4개의 축을 자동으로 계산, 동시에 제어합니다.<br><br>
                     이 과정은 반복 조정 없이 단 한 번의 명령으로 수행됩니다.<br>
                     고하중 상태에서도 각도 축이 흔들리지 않도록 정밀도와 반복성을 유지합니다.
                 </p>
                 
-                <div class="demo-video-container">
-                    <iframe 
-                        width="800" 
-                        height="450" 
-                        src="https://www.youtube.com/embed/KEkrXZUAUwE" 
-                        title="BalanceStage QuadAlign X Demo" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                        allowfullscreen>
-                    </iframe>
+                <div class="demo-video-placeholder mx-auto">
+                    <div class="play-icon">
+                        <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    </div>
                 </div>
                 
-                <p style="color: #9CA3AF; margin-top: 1rem;">
+                <p class="text-center mt-4 text-text-sub font-light">
                     * 실제 시연 영상에서는 Before/After 비교와 Pitch/Roll 제어가 실시간으로 보정되는 과정을 확인할 수 있습니다.
                 </p>
             </div>
@@ -983,190 +248,207 @@
     </section>
 
     <!-- Applications -->
-    <section id="applications" class="section">
+    <section id="applications" class="section bg-dark">
         <div class="container">
             <div class="section-nav dark">#applications</div>
-            <h2 class="section-title">적용 분야</h2>
-            <p class="section-subtitle">
+            <h2 class="text-4xl font-bold text-center mb-6 text-white">적용 분야</h2>
+            <p class="text-xl font-light text-center mb-16 text-text-light max-w-3xl mx-auto">
                 "정렬을 쉽게 만든다는 것,<br>
                 그것은 곧 제조 품질과 효율 전체를 바꾸는 일입니다."
             </p>
             
-            <div class="applications-grid">
-                <div class="application-item">
-                    <div class="application-icon">💻</div>
-                    <h3>반도체 패키징 및 조립</h3>
-                    <p>정밀한 칩 정렬과 본딩 공정에서 탁월한 성능을 발휘합니다.</p>
+            <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-8 mt-12">
+                <div class="bg-dark-light p-8 rounded-xl shadow-xl border border-dark-lighter hover:bg-dark-lighter transition-all duration-200 hover:-translate-y-2 text-center">
+                    <div class="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-4 text-white text-3xl">
+                        💻
+                    </div>
+                    <h3 class="text-lg font-semibold mb-4 text-white">반도체 패키징 및 조립</h3>
+                    <p class="text-text-light font-light">정밀한 칩 정렬과 본딩 공정에서 탁월한 성능을 발휘합니다.</p>
                 </div>
                 
-                <div class="application-item">
-                    <div class="application-icon">🔍</div>
-                    <h3>광학 렌즈 및 센서 정렬</h3>
-                    <p>고정밀 광학 시스템의 렌즈와 센서 정렬 작업을 자동화합니다.</p>
+                <div class="bg-dark-light p-8 rounded-xl shadow-xl border border-dark-lighter hover:bg-dark-lighter transition-all duration-200 hover:-translate-y-2 text-center">
+                    <div class="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-4 text-white text-3xl">
+                        🔍
+                    </div>
+                    <h3 class="text-lg font-semibold mb-4 text-white">광학 렌즈 및 센서 정렬</h3>
+                    <p class="text-text-light font-light">고정밀 광학 시스템의 렌즈와 센서 정렬 작업을 자동화합니다.</p>
                 </div>
                 
-                <div class="application-item">
-                    <div class="application-icon">🤖</div>
-                    <h3>정밀 로봇 캘리브레이션</h3>
-                    <p>산업용 로봇의 정밀 캘리브레이션과 위치 보정을 지원합니다.</p>
+                <div class="bg-dark-light p-8 rounded-xl shadow-xl border border-dark-lighter hover:bg-dark-lighter transition-all duration-200 hover:-translate-y-2 text-center">
+                    <div class="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-4 text-white text-3xl">
+                        🤖
+                    </div>
+                    <h3 class="text-lg font-semibold mb-4 text-white">정밀 로봇 캘리브레이션</h3>
+                    <p class="text-text-light font-light">산업용 로봇의 정밀 캘리브레이션과 위치 보정을 지원합니다.</p>
                 </div>
                 
-                <div class="application-item">
-                    <div class="application-icon">🚀</div>
-                    <h3>우주/방산 정밀 조립</h3>
-                    <p>극도의 정밀도가 요구되는 우주항공 및 방산 분야 자동화에 적용됩니다.</p>
+                <div class="bg-dark-light p-8 rounded-xl shadow-xl border border-dark-lighter hover:bg-dark-lighter transition-all duration-200 hover:-translate-y-2 text-center">
+                    <div class="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-4 text-white text-3xl">
+                        🚀
+                    </div>
+                    <h3 class="text-lg font-semibold mb-4 text-white">우주/방산 정밀 조립</h3>
+                    <p class="text-text-light font-light">극도의 정밀도가 요구되는 우주항공 및 방산 분야 자동화에 적용됩니다.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Future Solutions -->
-    <section id="future" class="section future-solutions">
+    <section id="future" class="section future-solutions bg-white">
         <div class="container">
             <div class="section-nav light">#future-solutions</div>
-            <h2 class="section-title">향후 방향: 지능형 정렬 생태계</h2>
-            <p class="section-subtitle">
+            <h2 class="text-4xl font-bold text-center mb-6 text-dark">향후 방향: 지능형 정렬 생태계</h2>
+            <p class="text-xl font-light text-center mb-16 text-text-sub max-w-4xl mx-auto">
                 QuadAlign X를 넘어, 정렬의 모든 과정을 자동화하고 최적화하는<br>
                 통합 솔루션으로 진화합니다.
             </p>
             
-            <div class="future-grid">
-                <div class="future-card main-card">
-                    <div class="future-icon">🧠</div>
-                    <h3>정렬 레시피 관리 및 최적화 앱</h3>
-                    <div class="future-content">
-                        <div class="service-description">
-                            <h4>🔧 서비스 내용</h4>
-                            <p>다양한 제품 또는 공정별로 최적화된 정렬 조건을 '레시피' 형태로 앱에 저장하고 관리할 수 있습니다. 사용자는 앱에서 원하는 레시피를 선택하여 장비에 적용할 수 있으며, 과거 정렬 데이터와 성능을 기반으로 AI가 특정 조건에 대한 최적의 정렬 레시피를 제안하거나 기존 레시피를 개선하는 데 도움을 줍니다.</p>
-                        </div>
-                        
-                        <div class="service-strengths">
-                            <h4>💪 핵심 강점</h4>
-                            <ul>
-                                <li>작업자가 수동으로 조건을 설정할 필요 없이 표준화된 고품질 정렬을 일관되게 수행</li>
-                                <li>신규 제품 도입 시 시행착오를 줄여 빠르게 생산을 시작</li>
-                                <li>과거 데이터 기반 AI 최적화로 지속적인 성능 개선</li>
-                                <li>레시피 버전 관리로 품질 추적성 확보</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="service-necessity">
-                            <h4>🎯 필요성</h4>
-                            <p>정밀 제조에서는 공정의 반복성과 일관성이 중요하며, 레시피 관리는 생산 품질을 표준화하고 작업 효율을 높이는 데 필수적입니다. 숙련 작업자에 의존하던 정렬 공정을 시스템화하여 누구나 동일한 품질을 달성할 수 있게 합니다.</p>
-                        </div>
+            <div class="bg-gray-50 rounded-3xl p-12 shadow-xl border border-gray-200">
+                <div class="flex items-center mb-8">
+                    <div class="w-20 h-20 bg-primary rounded-3xl flex items-center justify-center mr-8 text-white text-4xl">
+                        🧠
+                    </div>
+                    <h3 class="text-2xl font-bold text-dark">정렬 레시피 관리 및 최적화 앱</h3>
+                </div>
+                
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <div class="space-y-4">
+                        <h4 class="text-lg font-semibold text-dark flex items-center">
+                            🔧 <span class="ml-2">서비스 내용</span>
+                        </h4>
+                        <p class="text-text-sub font-light leading-relaxed">
+                            다양한 제품 또는 공정별로 최적화된 정렬 조건을 '레시피' 형태로 앱에 저장하고 관리할 수 있습니다. 
+                            사용자는 앱에서 원하는 레시피를 선택하여 장비에 적용할 수 있으며, 과거 정렬 데이터와 성능을 기반으로 
+                            AI가 특정 조건에 대한 최적의 정렬 레시피를 제안하거나 기존 레시피를 개선하는 데 도움을 줍니다.
+                        </p>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <h4 class="text-lg font-semibold text-dark flex items-center">
+                            💪 <span class="ml-2">핵심 강점</span>
+                        </h4>
+                        <ul class="space-y-2">
+                            <li class="flex items-start text-text-sub font-light">
+                                <span class="text-green-500 mr-2 mt-1">✓</span>
+                                작업자가 수동으로 조건을 설정할 필요 없이 표준화된 고품질 정렬을 일관되게 수행
+                            </li>
+                            <li class="flex items-start text-text-sub font-light">
+                                <span class="text-green-500 mr-2 mt-1">✓</span>
+                                신규 제품 도입 시 시행착오를 줄여 빠르게 생산을 시작
+                            </li>
+                            <li class="flex items-start text-text-sub font-light">
+                                <span class="text-green-500 mr-2 mt-1">✓</span>
+                                과거 데이터 기반 AI 최적화로 지속적인 성능 개선
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <h4 class="text-lg font-semibold text-dark flex items-center">
+                            🎯 <span class="ml-2">필요성</span>
+                        </h4>
+                        <p class="text-text-sub font-light leading-relaxed">
+                            정밀 제조에서는 공정의 반복성과 일관성이 중요하며, 레시피 관리는 생산 품질을 표준화하고 
+                            작업 효율을 높이는 데 필수적입니다. 숙련 작업자에 의존하던 정렬 공정을 시스템화하여 
+                            누구나 동일한 품질을 달성할 수 있게 합니다.
+                        </p>
                     </div>
                 </div>
                 
-                <div class="future-features">
-                    <div class="feature-item">
-                        <div class="feature-number">01</div>
-                        <h4>스마트 레시피 생성</h4>
-                        <p>AI가 과거 데이터를 분석하여 새로운 제품에 최적화된 정렬 레시피를 자동 생성</p>
-                    </div>
-                    
-                    <div class="feature-item">
-                        <h4>실시간 성능 모니터링</h4>
-                        <div class="feature-number">02</div>
-                        <p>정렬 과정을 실시간으로 모니터링하고 품질 지표를 자동으로 수집 및 분석</p>
-                    </div>
-                    
-                    <div class="feature-item">
-                        <div class="feature-number">03</div>
-                        <h4>협업 레시피 공유</h4>
-                        <p>팀 내에서 검증된 레시피를 공유하고 버전 관리를 통해 최적 조건 유지</p>
-                    </div>
-                    
-                    <div class="feature-item">
-                        <div class="feature-number">04</div>
-                        <h4>예측 유지보수</h4>
-                        <p>장비 상태와 정렬 성능 변화를 분석하여 유지보수 시점을 예측하고 알림</p>
-                    </div>
+                <div class="mt-12 text-center bg-white p-8 rounded-2xl shadow-lg">
+                    <h3 class="text-xl font-bold text-dark mb-4 flex items-center justify-center">
+                        🚀 <span class="ml-2">비전: 완전 자율 정렬 시스템</span>
+                    </h3>
+                    <p class="text-text-sub font-light leading-relaxed">
+                        단순한 장비에서 지능형 플랫폼으로, 개별 솔루션에서 통합 생태계로.<br>
+                        블루로봇은 정렬의 모든 과정을 자동화하고 최적화하는<br>
+                        <span class="text-primary font-semibold">완전 자율 정렬 시스템</span>을 구축해나가고 있습니다.
+                    </p>
                 </div>
-            </div>
-            
-            <div class="future-vision">
-                <h3>🚀 비전: 완전 자율 정렬 시스템</h3>
-                <p>
-                    단순한 장비에서 지능형 플랫폼으로, 개별 솔루션에서 통합 생태계로.<br>
-                    블루로봇은 정렬의 모든 과정을 자동화하고 최적화하는<br>
-                    <strong>완전 자율 정렬 시스템</strong>을 구축해나가고 있습니다.
-                </p>
             </div>
         </div>
     </section>
 
     <!-- Roadmap -->
-    <section class="section roadmap">
+    <section class="section roadmap bg-white">
         <div class="container">
             <div class="roadmap-content">
                 <div class="section-nav light">#roadmap</div>
-                <h2 class="section-title" style="color: #0F172A;">2축에서 시작해, 정렬 제어의 기준을 다시 쓰다.</h2>
-                <p style="font-size: 1.2rem; line-height: 1.8; opacity: 0.9;">
-                    QuadAlign X는 2축 기반 정렬기의 확장이 아닙니다.<br><br>
-                    
-                    Pitch/Roll을 중심으로 다축 간 간섭을 실시간으로 보정하며,<br>
-                    제어 구조 자체를 혁신한 통합형 플랫폼입니다.<br><br>
-                    
-                    블루로봇은 이를 기반으로 Z축과 Yaw축까지 통합해<br>
-                    6축 지능 정렬 시스템으로 진화하고 있습니다.<br><br>
-                    
-                    <strong>정렬은 이제 점과 점을 맞추는 일이 아니라,<br>
-                    공정을 재설계하는 기술이 되어야 합니다.</strong>
-                </p>
+                <h2 class="text-4xl font-bold text-center mb-6 text-dark">2축에서 시작해, 정렬 제어의 기준을 다시 쓰다.</h2>
+                <div class="max-w-4xl mx-auto text-center">
+                    <p class="text-xl font-light leading-relaxed text-text-sub">
+                        QuadAlign X는 2축 기반 정렬기의 확장이 아닙니다.<br><br>
+                        
+                        Pitch/Roll을 중심으로 다축 간 간섭을 실시간으로 보정하며,<br>
+                        제어 구조 자체를 혁신한 통합형 플랫폼입니다.<br><br>
+                        
+                        블루로봇은 이를 기반으로 Z축과 Yaw축까지 통합해<br>
+                        6축 지능 정렬 시스템으로 진화하고 있습니다.<br><br>
+                        
+                        <span class="text-primary font-semibold text-xl">
+                            정렬은 이제 점과 점을 맞추는 일이 아니라,<br>
+                            공정을 재설계하는 기술이 되어야 합니다.
+                        </span>
+                    </p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Company -->
-    <section class="section company">
+    <section class="section company bg-dark">
         <div class="container">
             <div class="company-content">
                 <div class="section-nav dark">#company-vision</div>
-                <img src="../assets/logo/Bluerobot_CI.png" alt="BlueRobot" class="company-logo" />
-                <h2 class="section-title">복잡한 기술을 단순하게,<br>정밀한 기술을 누구나 쓰게.</h2>
-                <p style="font-size: 1.2rem; line-height: 1.8; color: #666;">
-                    블루로봇은 정렬 기술을 특정 장비의 영역이 아니라<br>
-                    누구나 접근 가능한 기술 플랫폼으로 만듭니다.<br><br>
-                    
-                    기존의 기계 중심 기술에서 벗어나,<br>
-                    제어 중심, 알고리즘 중심 정렬 시대를 여는 기업입니다.
-                </p>
+                <img src="assets/logo/Bluerobot_CI.png" alt="BlueRobot" class="company-logo mx-auto mb-8 w-40" />
+                <h2 class="text-4xl font-bold text-center mb-6 text-white">
+                    복잡한 기술을 단순하게,<br>정밀한 기술을 누구나 쓰게.
+                </h2>
+                <div class="max-w-3xl mx-auto text-center">
+                    <p class="text-xl font-light leading-relaxed text-text-light">
+                        블루로봇은 정렬 기술을 특정 장비의 영역이 아니라<br>
+                        누구나 접근 가능한 기술 플랫폼으로 만듭니다.<br><br>
+                        
+                        기존의 기계 중심 기술에서 벗어나,<br>
+                        제어 중심, 알고리즘 중심 정렬 시대를 여는 기업입니다.
+                    </p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Contact -->
-    <section id="contact" class="section contact">
+    <section id="contact" class="section contact bg-white">
         <div class="container">
             <div class="section-nav light">#contact</div>
-            <h2 class="section-title" style="color: #0F172A;">연락처 및 자료 요청</h2>
+            <h2 class="text-4xl font-bold text-center mb-6 text-dark">연락처 및 자료 요청</h2>
             
-            <div class="contact-grid">
-                <div class="contact-item">
-                    <h3>📄 기술 브로셔</h3>
-                    <p>상세한 기술 사양과 성능 데이터</p>
-                    <a href="#" class="btn btn-primary" style="margin-top: 1rem; display: inline-block;">PDF 다운로드</a>
+            <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-8 mt-12">
+                <div class="bg-gray-50 p-8 rounded-xl text-center border border-gray-200">
+                    <h3 class="text-lg font-semibold mb-4 text-primary">📄 기술 브로셔</h3>
+                    <p class="text-text-sub font-light mb-4">상세한 기술 사양과 성능 데이터</p>
+                    <a href="#" class="btn btn-primary inline-block">PDF 다운로드</a>
                 </div>
                 
-                <div class="contact-item">
-                    <h3>📊 CES 평가자료</h3>
-                    <p>성능 평가 결과 및 테스트 데이터</p>
-                    <a href="#" class="btn btn-primary" style="margin-top: 1rem; display: inline-block;">ZIP 요청</a>
+                <div class="bg-gray-50 p-8 rounded-xl text-center border border-gray-200">
+                    <h3 class="text-lg font-semibold mb-4 text-primary">📊 CES 평가자료</h3>
+                    <p class="text-text-sub font-light mb-4">성능 평가 결과 및 테스트 데이터</p>
+                    <a href="#" class="btn btn-primary inline-block">ZIP 요청</a>
                 </div>
                 
-                <div class="contact-item">
-                    <h3>✉️ 이메일 문의</h3>
-                    <p>기술 문의 및 도입 상담</p>
-                    <a href="mailto:ces@bluerobot.co.kr">ces@bluerobot.co.kr</a>
+                <div class="bg-gray-50 p-8 rounded-xl text-center border border-gray-200">
+                    <h3 class="text-lg font-semibold mb-4 text-primary">✉️ 이메일 문의</h3>
+                    <p class="text-text-sub font-light mb-4">기술 문의 및 도입 상담</p>
+                    <a href="mailto:ces@bluerobot.co.kr" class="text-primary hover:text-accent transition-colors">ces@bluerobot.co.kr</a>
                 </div>
                 
-                <div class="contact-item">
-                    <h3>🌐 소셜 미디어</h3>
-                    <p>최신 소식과 기술 정보</p>
-                    <div style="margin-top: 1rem;">
-                        <a href="#" style="margin-right: 1rem;">LinkedIn</a>
-                        <a href="#" style="margin-right: 1rem;">YouTube</a>
-                        <a href="#">기술 블로그</a>
+                <div class="bg-gray-50 p-8 rounded-xl text-center border border-gray-200">
+                    <h3 class="text-lg font-semibold mb-4 text-primary">🌐 소셜 미디어</h3>
+                    <p class="text-text-sub font-light mb-4">최신 소식과 기술 정보</p>
+                    <div class="space-x-4">
+                        <a href="#" class="text-primary hover:text-accent transition-colors">LinkedIn</a>
+                        <a href="#" class="text-primary hover:text-accent transition-colors">YouTube</a>
+                        <a href="#" class="text-primary hover:text-accent transition-colors">블로그</a>
                     </div>
                 </div>
             </div>
@@ -1175,67 +457,13 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <p>&copy; 2025 BlueRobot. All rights reserved. | BalanceStage QuadAlign X</p>
-            <p style="margin-top: 0.5rem; opacity: 0.7;">혁신적인 정렬 기술로 제조업의 미래를 만들어갑니다.</p>
+        <div class="container text-center">
+            <p class="text-text-sub">&copy; 2025 BlueRobot. All rights reserved. | BalanceStage QuadAlign X</p>
+            <p class="mt-2 text-text-sub font-light opacity-70">혁신적인 정렬 기술로 제조업의 미래를 만들어갑니다.</p>
         </div>
     </footer>
 
-    <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Header scroll effect (remove since header is always white)
-        // window.addEventListener('scroll', function() {
-        //     const header = document.querySelector('.header');
-        //     if (window.scrollY > 100) {
-        //         header.classList.add('scrolled');
-        //     } else {
-        //         header.classList.remove('scrolled');
-        //     }
-        // });
-
-        // Demo video placeholder interaction
-        document.querySelector('.demo-video-placeholder').addEventListener('click', function() {
-            alert('실제 시연 영상을 재생하려면 비디오 파일을 추가해주세요.');
-        });
-
-        // Hero video optimization
-        const heroVideo = document.querySelector('.hero-video');
-        if (heroVideo) {
-            heroVideo.addEventListener('loadstart', function() {
-                console.log('Hero video loading started');
-            });
-            
-            heroVideo.addEventListener('canplay', function() {
-                console.log('Hero video can start playing');
-                heroVideo.style.opacity = '1';
-            });
-            
-            // Pause video when not in viewport (performance optimization)
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        heroVideo.play();
-                    } else {
-                        heroVideo.pause();
-                    }
-                });
-            });
-            
-            observer.observe(heroVideo);
-        }
-    </script>
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
 </body>
 </html>
