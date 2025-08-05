@@ -156,6 +156,19 @@
     border: none;
 }
 
+/* Responsive iframe */
+@media (max-width: 768px) {
+    .demo-video-container iframe {
+        height: 280px;
+    }
+}
+
+@media (max-width: 480px) {
+    .demo-video-container iframe {
+        height: 220px;
+    }
+}
+
 .demo-video-placeholder {
     width: 100%;
     max-width: 800px;

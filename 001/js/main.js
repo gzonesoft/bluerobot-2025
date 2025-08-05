@@ -14,13 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Demo video placeholder interaction
-    const demoPlaceholder = document.querySelector('.demo-video-placeholder');
-    if (demoPlaceholder) {
-        demoPlaceholder.addEventListener('click', function() {
-            alert('실제 시연 영상을 재생하려면 비디오 파일을 추가해주세요.');
-        });
-    }
+    // Demo video - now using YouTube embed, no placeholder needed
 
     // Hero video optimization
     const heroVideo = document.querySelector('.hero-video');
@@ -48,3 +42,15 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(heroVideo);
     }
 });
+
+// Footer functions for download and contact
+function downloadBrochure() {
+    // PDF 다운로드 로직
+    alert('기술 브로셔 PDF 다운로드 기능이 준비 중입니다.');
+    // 실제 구현 시: window.open('../assets/brochure/QuadAlign-X-Brochure.pdf', '_blank');
+}
+
+function requestEvaluation() {
+    // ZIP 파일 요청 로직  
+    window.open('mailto:ces@bluerobot.co.kr?subject=CES 평가자료 요청&body=안녕하세요,%0D%0A%0D%0ABalanceStage QuadAlign X CES 평가자료를 요청드립니다.%0D%0A%0D%0A회사명:%0D%0A담당자:%0D%0A연락처:%0D%0A%0D%0A감사합니다.', '_blank');
+}

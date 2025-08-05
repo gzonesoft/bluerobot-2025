@@ -8,6 +8,9 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/hero.css">
@@ -45,7 +48,7 @@
     <header class="header">
         <nav class="nav">
             <div class="logo">
-                <img src="assets/logo/Bluerobot_CI.png" alt="BlueRobot" />
+                <img src="../assets/logo/Bluerobot_CI.png" alt="BlueRobot" />
             </div>
             <ul class="nav-links">
                 <li><a href="#features">기술특징</a></li>
@@ -60,13 +63,13 @@
     <!-- Hero Section -->
     <section class="hero">
         <video class="hero-video" autoplay muted loop playsinline>
-            <source src="assets/video/Herosection.mp4" type="video/mp4">
+            <source src="../assets/video/Herosection.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
         <div class="hero-content">
             <div class="section-nav dark">#introduction</div>
             <div class="product-logo">
-                <img src="assets/logo/Balancestage_BI.png" alt="BalanceStage" />
+                <img src="../assets/logo/Balancestage_BI.png" alt="BalanceStage" />
             </div>
             <h1 class="text-5xl lg:text-6xl font-bold mb-6 text-white">
                 정렬이 쉬워지면,<br>제조는 달라집니다.
@@ -232,12 +235,17 @@
                     고하중 상태에서도 각도 축이 흔들리지 않도록 정밀도와 반복성을 유지합니다.
                 </p>
                 
-                <div class="demo-video-placeholder mx-auto">
-                    <div class="play-icon">
-                        <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M8 5v14l11-7z"/>
-                        </svg>
-                    </div>
+                <div class="demo-video-container mx-auto">
+                    <iframe 
+                        width="800" 
+                        height="450" 
+                        src="https://www.youtube.com/embed/KEkrXZUAUwE" 
+                        title="BalanceStage QuadAlign X 시연 영상" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        allowfullscreen
+                        class="rounded-lg shadow-2xl">
+                    </iframe>
                 </div>
                 
                 <p class="text-center mt-4 text-text-sub font-light">
@@ -317,9 +325,10 @@
                             🔧 <span class="ml-2">서비스 내용</span>
                         </h4>
                         <p class="text-text-sub font-light leading-relaxed">
-                            다양한 제품 또는 공정별로 최적화된 정렬 조건을 '레시피' 형태로 앱에 저장하고 관리할 수 있습니다. 
-                            사용자는 앱에서 원하는 레시피를 선택하여 장비에 적용할 수 있으며, 과거 정렬 데이터와 성능을 기반으로 
-                            AI가 특정 조건에 대한 최적의 정렬 레시피를 제안하거나 기존 레시피를 개선하는 데 도움을 줍니다.
+                            • 제품별 최적 정렬 조건 '레시피' 저장<br>
+                            • 앱에서 원터치 레시피 적용<br>
+                            • AI 기반 최적 레시피 제안<br>
+                            • 과거 데이터 분석 및 성능 개선
                         </p>
                     </div>
                     
@@ -327,20 +336,12 @@
                         <h4 class="text-lg font-semibold text-dark flex items-center">
                             💪 <span class="ml-2">핵심 강점</span>
                         </h4>
-                        <ul class="space-y-2">
-                            <li class="flex items-start text-text-sub font-light">
-                                <span class="text-green-500 mr-2 mt-1">✓</span>
-                                작업자가 수동으로 조건을 설정할 필요 없이 표준화된 고품질 정렬을 일관되게 수행
-                            </li>
-                            <li class="flex items-start text-text-sub font-light">
-                                <span class="text-green-500 mr-2 mt-1">✓</span>
-                                신규 제품 도입 시 시행착오를 줄여 빠르게 생산을 시작
-                            </li>
-                            <li class="flex items-start text-text-sub font-light">
-                                <span class="text-green-500 mr-2 mt-1">✓</span>
-                                과거 데이터 기반 AI 최적화로 지속적인 성능 개선
-                            </li>
-                        </ul>
+                        <p class="text-text-sub font-light leading-relaxed">
+                            • 표준화된 고품질 정렬 보장<br>
+                            • 신제품 도입 시간 단축<br>
+                            • 작업자 숙련도 무관<br>
+                            • 지속적 성능 최적화
+                        </p>
                     </div>
                     
                     <div class="space-y-4">
@@ -348,9 +349,10 @@
                             🎯 <span class="ml-2">필요성</span>
                         </h4>
                         <p class="text-text-sub font-light leading-relaxed">
-                            정밀 제조에서는 공정의 반복성과 일관성이 중요하며, 레시피 관리는 생산 품질을 표준화하고 
-                            작업 효율을 높이는 데 필수적입니다. 숙련 작업자에 의존하던 정렬 공정을 시스템화하여 
-                            누구나 동일한 품질을 달성할 수 있게 합니다.
+                            • 공정 반복성 및 일관성 확보<br>
+                            • 생산 품질 표준화<br>
+                            • 작업 효율 극대화<br>
+                            • 숙련 작업자 의존도 탈피
                         </p>
                     </div>
                 </div>
@@ -360,9 +362,9 @@
                         🚀 <span class="ml-2">비전: 완전 자율 정렬 시스템</span>
                     </h3>
                     <p class="text-text-sub font-light leading-relaxed">
-                        단순한 장비에서 지능형 플랫폼으로, 개별 솔루션에서 통합 생태계로.<br>
-                        블루로봇은 정렬의 모든 과정을 자동화하고 최적화하는<br>
-                        <span class="text-primary font-semibold">완전 자율 정렬 시스템</span>을 구축해나가고 있습니다.
+                        <span class="text-primary font-semibold">장비 → 플랫폼 → 생태계</span><br>
+                        정렬의 모든 과정을 자동화하고 최적화하는<br>
+                        <span class="text-primary font-semibold">완전 자율 정렬 시스템</span> 구축
                     </p>
                 </div>
             </div>
@@ -400,7 +402,7 @@
         <div class="container">
             <div class="company-content">
                 <div class="section-nav dark">#company-vision</div>
-                <img src="assets/logo/Bluerobot_CI.png" alt="BlueRobot" class="company-logo mx-auto mb-8 w-40" />
+                <img src="../assets/logo/Bluerobot_CI.png" alt="BlueRobot" class="company-logo mx-auto mb-8 w-40" />
                 <h2 class="text-4xl font-bold text-center mb-6 text-white">
                     복잡한 기술을 단순하게,<br>정밀한 기술을 누구나 쓰게.
                 </h2>
@@ -418,50 +420,72 @@
     </section>
 
     <!-- Contact -->
-    <section id="contact" class="section contact bg-white">
-        <div class="container">
-            <div class="section-nav light">#contact</div>
-            <h2 class="text-4xl font-bold text-center mb-6 text-dark">연락처 및 자료 요청</h2>
+    <footer id="contact" class="footer-contact">
+        <div class="footer-grid">
+            <!-- Left Brand Section -->
+            <div class="footer-brand">
+                <img src="../assets/logo/Bluerobot_CI.png" alt="BlueRobot" class="company-logo">
+                <p class="footer-tagline">정렬이 쉬워지면, 제조는 달라집니다.</p>
+                <div class="footer-address">
+                    세종특별자치시 조치원읍 세종로 2296<br>
+                    (세종창업키움센터) 308호<br>
+                    <a href="https://bluerobot.co.kr/" target="_blank" class="text-accent hover:text-white transition-colors mt-2 inline-block">bluerobot.co.kr</a>
+                </div>
+            </div>
             
-            <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-8 mt-12">
-                <div class="bg-gray-50 p-8 rounded-xl text-center border border-gray-200">
-                    <h3 class="text-lg font-semibold mb-4 text-primary">📄 기술 브로셔</h3>
-                    <p class="text-text-sub font-light mb-4">상세한 기술 사양과 성능 데이터</p>
-                    <a href="#" class="btn btn-primary inline-block">PDF 다운로드</a>
+            <!-- Right Navigation -->
+            <div class="footer-nav">
+                <div class="footer-nav-column">
+                    <h4>제품 정보</h4>
+                    <ul>
+                        <li><a href="#features">기술 특징</a></li>
+                        <li><a href="#applications">적용 분야</a></li>
+                        <li><a href="#demo">시연 영상</a></li>
+                        <li><a href="#roadmap">기술 로드맵</a></li>
+                    </ul>
                 </div>
                 
-                <div class="bg-gray-50 p-8 rounded-xl text-center border border-gray-200">
-                    <h3 class="text-lg font-semibold mb-4 text-primary">📊 CES 평가자료</h3>
-                    <p class="text-text-sub font-light mb-4">성능 평가 결과 및 테스트 데이터</p>
-                    <a href="#" class="btn btn-primary inline-block">ZIP 요청</a>
-                </div>
-                
-                <div class="bg-gray-50 p-8 rounded-xl text-center border border-gray-200">
-                    <h3 class="text-lg font-semibold mb-4 text-primary">✉️ 이메일 문의</h3>
-                    <p class="text-text-sub font-light mb-4">기술 문의 및 도입 상담</p>
-                    <a href="mailto:ces@bluerobot.co.kr" class="text-primary hover:text-accent transition-colors">ces@bluerobot.co.kr</a>
-                </div>
-                
-                <div class="bg-gray-50 p-8 rounded-xl text-center border border-gray-200">
-                    <h3 class="text-lg font-semibold mb-4 text-primary">🌐 소셜 미디어</h3>
-                    <p class="text-text-sub font-light mb-4">최신 소식과 기술 정보</p>
-                    <div class="space-x-4">
-                        <a href="#" class="text-primary hover:text-accent transition-colors">LinkedIn</a>
-                        <a href="#" class="text-primary hover:text-accent transition-colors">YouTube</a>
-                        <a href="#" class="text-primary hover:text-accent transition-colors">블로그</a>
-                    </div>
+                <div class="footer-nav-column">
+                    <h4>자료 및 문의</h4>
+                    <ul>
+                        <li><a href="#" onclick="downloadBrochure()">기술 브로셔 PDF</a></li>
+                        <li><a href="#" onclick="requestEvaluation()">CES 평가자료 ZIP</a></li>
+                        <li><a href="mailto:ces@bluerobot.co.kr">이메일 문의</a></li>
+                        <li><a href="#company-vision">회사 소개</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container text-center">
-            <p class="text-text-sub">&copy; 2025 BlueRobot. All rights reserved. | BalanceStage QuadAlign X</p>
-            <p class="mt-2 text-text-sub font-light opacity-70">혁신적인 정렬 기술로 제조업의 미래를 만들어갑니다.</p>
+        
+        <!-- Social Media & Copyright -->
+        <div class="footer-social">
+            <div class="social-icons">
+                <a href="https://kr.linkedin.com/in/jeongmi-choi-343556368" class="social-icon" target="_blank">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="https://www.youtube.com/@bluerobot2022" class="social-icon" target="_blank">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <a href="https://bluerobot.co.kr/" class="social-icon" target="_blank">
+                    <i class="fas fa-globe"></i>
+                </a>
+                <a href="mailto:ces@bluerobot.co.kr" class="social-icon">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+            
+            <div class="footer-copyright">
+                © BlueRobot Inc. 2025. All rights reserved.
+                <div class="footer-links">
+                    <a href="/privacy">개인정보처리방침</a>
+                    <a href="/terms">이용약관</a>
+                    <a href="/press">보도자료</a>
+                </div>
+            </div>
         </div>
     </footer>
+
+
 
     <!-- JavaScript -->
     <script src="js/main.js"></script>
