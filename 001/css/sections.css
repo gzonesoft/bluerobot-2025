@@ -308,3 +308,12 @@
         display: none;
     }
 }
+
+/* Lucide Icon Styles */
+[data-lucide] {
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
