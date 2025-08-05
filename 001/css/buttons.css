@@ -31,12 +31,12 @@
 }
 
 .btn-secondary {
-    background: transparent;
-    color: #38BDF8;
-    border: 2px solid #38BDF8;
+    background: transparent !important;
+    color: #FFFFFF !important;
+    border: 2px solid #FFFFFF !important;
 }
 
 .btn-secondary:hover {
-    background: #38BDF8;
-    color: #0F172A;
+    background: #FFFFFF !important;
+    color: #0F172A !important;
 }
