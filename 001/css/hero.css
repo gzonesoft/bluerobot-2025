@@ -84,4 +84,5 @@
 .product-logo img {
     height: 80px;
     width: auto;
+    filter: brightness(0) invert(1); /* 로고를 흰색으로 변환 */
 }

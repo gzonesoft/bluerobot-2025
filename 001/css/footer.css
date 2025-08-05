@@ -22,6 +22,7 @@
     height: auto;
     margin: 0 auto 2rem;
     display: block;
+    filter: brightness(0) invert(1); /* 로고를 흰색으로 변환 */
 }
 
 /* Contact Footer Section - nTop Style */
