@@ -68,12 +68,24 @@
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, #0f1419 0%, #1a2332 100%);
             color: white;
             padding: 120px 2rem 80px;
             text-align: center;
             position: relative;
             overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
         }
 
         .hero::before {
@@ -83,15 +95,36 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>') repeat;
-            opacity: 0.3;
+            background: linear-gradient(
+                135deg,
+                rgba(0, 0, 0, 0.7) 0%,
+                rgba(0, 0, 0, 0.5) 50%,
+                rgba(0, 0, 0, 0.7) 100%
+            );
+            z-index: 2;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(
+                ellipse at center,
+                rgba(0, 0, 0, 0.3) 0%,
+                rgba(0, 0, 0, 0.6) 100%
+            );
+            z-index: 2;
         }
 
         .hero-content {
             max-width: 800px;
             margin: 0 auto;
             position: relative;
-            z-index: 1;
+            z-index: 3;
+            width: 100%;
         }
 
         .hero h1 {
@@ -102,13 +135,15 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         .hero p {
             font-size: 1.3rem;
             margin-bottom: 2rem;
-            opacity: 0.9;
+            opacity: 0.95;
             line-height: 1.8;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
         }
 
         .cta-buttons {
@@ -456,6 +491,15 @@
                 font-size: 2.5rem;
             }
             
+            .hero {
+                min-height: 80vh;
+                padding: 100px 1rem 60px;
+            }
+            
+            .hero-video {
+                object-position: center center;
+            }
+            
             .comparison {
                 grid-template-columns: 1fr;
             }
@@ -484,6 +528,10 @@
 
     <!-- Hero Section -->
     <section class="hero">
+        <video class="hero-video" autoplay muted loop playsinline>
+            <source src="../assets/video/Herosection.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
         <div class="hero-content">
             <div class="product-logo">
                 <img src="../assets/logo/Balancestage_BI.png" alt="BalanceStage" />
@@ -772,6 +820,32 @@
         document.querySelector('.demo-video-placeholder').addEventListener('click', function() {
             alert('실제 시연 영상을 재생하려면 비디오 파일을 추가해주세요.');
         });
+
+        // Hero video optimization
+        const heroVideo = document.querySelector('.hero-video');
+        if (heroVideo) {
+            heroVideo.addEventListener('loadstart', function() {
+                console.log('Hero video loading started');
+            });
+            
+            heroVideo.addEventListener('canplay', function() {
+                console.log('Hero video can start playing');
+                heroVideo.style.opacity = '1';
+            });
+            
+            // Pause video when not in viewport (performance optimization)
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        heroVideo.play();
+                    } else {
+                        heroVideo.pause();
+                    }
+                });
+            });
+            
+            observer.observe(heroVideo);
+        }
     </script>
 </body>
 </html>
