@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BalanceStage QuadAlign X - 블루로봇</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 32px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #1a73e8;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0f1419 0%, #1a2332 100%);
+            color: white;
+            padding: 120px 2rem 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>') repeat;
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff, #a8dadc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #1a73e8, #34a853);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(26, 115, 232, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #333;
+        }
+
+        /* Product Demo Visualization */
+        .demo-visual {
+            margin: 3rem 0;
+            position: relative;
+        }
+
+        .alignment-demo {
+            width: 300px;
+            height: 200px;
+            margin: 0 auto;
+            position: relative;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+        }
+
+        .axis-indicator {
+            position: absolute;
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        .x-axis { top: 10px; left: 10px; }
+        .y-axis { top: 10px; right: 10px; }
+        .pitch-axis { bottom: 30px; left: 10px; }
+        .roll-axis { bottom: 30px; right: 10px; }
+
+        .platform {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 80px;
+            height: 40px;
+            background: linear-gradient(135deg, #1a73e8, #34a853);
+            border-radius: 4px;
+            transform: translate(-50%, -50%);
+            animation: alignmentDemo 4s ease-in-out infinite;
+        }
+
+        @keyframes alignmentDemo {
+            0% { transform: translate(-50%, -50%) rotate(5deg) skew(2deg); }
+            50% { transform: translate(-50%, -50%) rotate(-2deg) skew(-1deg); }
+            100% { transform: translate(-50%, -50%) rotate(0deg) skew(0deg); }
+        }
+
+        .product-logo {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        .product-logo img {
+            height: 60px;
+            width: auto;
+        }
+
+        .company-logo {
+            width: 150px;
+            height: auto;
+            margin: 0 auto 2rem;
+            display: block;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 80px 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #1a1a1a;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            color: #666;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Problem Solution Section */
+        .problem-solution {
+            background: #f8f9fa;
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .comparison-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .comparison-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .comparison-item.before {
+            border-left: 4px solid #ff6b6b;
+        }
+
+        .comparison-item.after {
+            border-left: 4px solid #51cf66;
+        }
+
+        /* Features Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #1a73e8, #34a853);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        /* Demo Section */
+        .demo-section {
+            background: #1a1a1a;
+            color: white;
+        }
+
+        .demo-container {
+            text-align: center;
+        }
+
+        .demo-video-placeholder {
+            width: 100%;
+            max-width: 800px;
+            height: 450px;
+            background: linear-gradient(135deg, #2d3748, #4a5568);
+            border-radius: 12px;
+            margin: 2rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .play-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .play-icon:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        /* Applications Section */
+        .applications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .application-item {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .application-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 16px;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+
+        /* Roadmap Section */
+        .roadmap {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .roadmap-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* Company Section */
+        .company {
+            background: #f8f9fa;
+        }
+
+        .company-content {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: #1a1a1a;
+            color: white;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .contact-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-item h3 {
+            margin-bottom: 1rem;
+            color: #1a73e8;
+        }
+
+        .contact-item a {
+            color: #ccc;
+            text-decoration: none;
+        }
+
+        .contact-item a:hover {
+            color: #1a73e8;
+        }
+
+        /* Footer */
+        .footer {
+            background: #0a0a0a;
+            color: #ccc;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">
+                <img src="../assets/logo/Bluerobot_CI.png" alt="BlueRobot" />
+            </div>
+            <ul class="nav-links">
+                <li><a href="#features">기술특징</a></li>
+                <li><a href="#demo">시연영상</a></li>
+                <li><a href="#applications">적용분야</a></li>
+                <li><a href="#contact">문의</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="product-logo">
+                <img src="../assets/logo/Balancestage_BI.png" alt="BalanceStage" />
+            </div>
+            <h1>정렬이 쉬워지면,<br>제조는 달라집니다.</h1>
+            <p>
+                BalanceStage QuadAlign X는<br>
+                4개의 축(X, Y, Pitch, Roll)을 하나의 제어 동작으로 통합한 세계 최초의 고하중 동기 정렬 플랫폼입니다.<br><br>
+                정렬은 이제 수동 조작이 아닌 한 번의 동작으로 완성되는 지능형 공정입니다.
+            </p>
+            
+            <div class="demo-visual">
+                <div class="alignment-demo">
+                    <div class="axis-indicator x-axis">X축</div>
+                    <div class="axis-indicator y-axis">Y축</div>
+                    <div class="axis-indicator pitch-axis">Pitch</div>
+                    <div class="axis-indicator roll-axis">Roll</div>
+                    <div class="platform"></div>
+                </div>
+            </div>
+            
+            <div class="cta-buttons">
+                <a href="#demo" class="btn btn-primary">시연 영상 보기</a>
+                <a href="#features" class="btn btn-secondary">기술 요약 보기</a>
+            </div>
+        </div>
+    </section>
+    <!-- Problem & Solution -->
+    <section class="section problem-solution">
+        <div class="container">
+            <h2 class="section-title">기존 정렬 시스템은 복잡했습니다.<br>우리는 정렬을 '플랫폼'으로 다시 설계했습니다.</h2>
+            <p class="section-subtitle">
+                정밀 제조에서 가장 어려운 과제는 고하중 환경에서의 각도 정렬(Pitch/Roll)입니다.<br>
+                기존 방식은 복잡한 병렬 구조나 숙련자 중심의 반복 조정에 의존해 왔습니다.
+            </p>
+            
+            <div class="comparison">
+                <div class="comparison-item before">
+                    <h3>🔴 기존 방식</h3>
+                    <ul>
+                        <li>복잡한 병렬 구조</li>
+                        <li>숙련자 중심의 반복 조정</li>
+                        <li>축 간 간섭으로 인한 오차</li>
+                        <li>긴 정렬 시간</li>
+                        <li>높은 학습 비용</li>
+                    </ul>
+                </div>
+                <div class="comparison-item after">
+                    <h3>🟢 QuadAlign X</h3>
+                    <ul>
+                        <li>4축 통합 제어 플랫폼</li>
+                        <li>자동 정렬 및 보정</li>
+                        <li>실시간 간섭 보정 알고리즘</li>
+                        <li>5초 이내 정렬 완료</li>
+                        <li>직관적인 조작</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 3rem; font-size: 1.3rem; font-weight: 600; color: #1a73e8;">
+                BalanceStage QuadAlign X는 4개의 축을 단일 플랫폼에서 동기화하고,<br>
+                축 간 간섭을 실시간으로 보정하여, 정렬의 개념 자체를 바꾸었습니다.
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="section">
+        <div class="container">
+            <h2 class="section-title">더한 것이 아니라, 묶었습니다.</h2>
+            <p class="section-subtitle">정렬의 복잡함을 하나의 제어로 바꾼 것입니다.</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>4축 통합 제어 플랫폼</h3>
+                    <p>X, Y, Pitch, Roll 4개 축을 하나의 제어 시스템으로 통합하여 복잡한 정렬 과정을 단순화했습니다.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>±5μm 정밀도</h3>
+                    <p>100kg 고하중 환경에서도 ±5μm 수준의 정밀도를 유지하며 반복성을 보장합니다.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⏱️</div>
+                    <h3>5초 이내 보정 완료</h3>
+                    <p>정렬 조건을 자동으로 감지하고 5초 이내에 모든 축의 보정을 동시에 완료합니다.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3>실시간 간섭 보정</h3>
+                    <p>축 간 간섭을 실시간으로 감지하고 보정하는 내장 알고리즘으로 정확한 정렬을 보장합니다.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>확장 가능한 구조</h3>
+                    <p>Z축, Yaw축으로 확장 가능한 진화형 구조로 미래의 요구사항에 대응합니다.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">💎</div>
+                    <h3>세계 최초 기술</h3>
+                    <p>4축 동기 정렬 플랫폼으로서 세계 최초의 혁신적인 기술을 구현했습니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section id="demo" class="section demo-section">
+        <div class="container">
+            <div class="demo-container">
+                <h2 class="section-title" style="color: white;">실시간 4축 정렬 시연</h2>
+                <p class="section-subtitle" style="color: #ccc;">
+                    QuadAlign X는 대상물의 위치 오차를 실시간으로 감지하고<br>
+                    4개의 축을 자동으로 계산, 동시에 제어합니다.<br><br>
+                    이 과정은 반복 조정 없이 단 한 번의 명령으로 수행됩니다.<br>
+                    고하중 상태에서도 각도 축이 흔들리지 않도록 정밀도와 반복성을 유지합니다.
+                </p>
+                
+                <div class="demo-video-placeholder">
+                    <div class="play-icon">
+                        <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    </div>
+                </div>
+                
+                <p style="color: #ccc; margin-top: 1rem;">
+                    * 실제 시연 영상에서는 Before/After 비교와 Pitch/Roll 제어가 실시간으로 보정되는 과정을 확인할 수 있습니다.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Applications -->
+    <section id="applications" class="section">
+        <div class="container">
+            <h2 class="section-title">적용 분야</h2>
+            <p class="section-subtitle">
+                "정렬을 쉽게 만든다는 것,<br>
+                그것은 곧 제조 품질과 효율 전체를 바꾸는 일입니다."
+            </p>
+            
+            <div class="applications-grid">
+                <div class="application-item">
+                    <div class="application-icon">💻</div>
+                    <h3>반도체 패키징 및 조립</h3>
+                    <p>정밀한 칩 정렬과 본딩 공정에서 탁월한 성능을 발휘합니다.</p>
+                </div>
+                
+                <div class="application-item">
+                    <div class="application-icon">🔍</div>
+                    <h3>광학 렌즈 및 센서 정렬</h3>
+                    <p>고정밀 광학 시스템의 렌즈와 센서 정렬 작업을 자동화합니다.</p>
+                </div>
+                
+                <div class="application-item">
+                    <div class="application-icon">🤖</div>
+                    <h3>정밀 로봇 캘리브레이션</h3>
+                    <p>산업용 로봇의 정밀 캘리브레이션과 위치 보정을 지원합니다.</p>
+                </div>
+                
+                <div class="application-item">
+                    <div class="application-icon">🚀</div>
+                    <h3>우주/방산 정밀 조립</h3>
+                    <p>극도의 정밀도가 요구되는 우주항공 및 방산 분야 자동화에 적용됩니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Roadmap -->
+    <section class="section roadmap">
+        <div class="container">
+            <div class="roadmap-content">
+                <h2 class="section-title" style="color: white;">2축에서 시작해, 정렬 제어의 기준을 다시 쓰다.</h2>
+                <p style="font-size: 1.2rem; line-height: 1.8; opacity: 0.9;">
+                    QuadAlign X는 2축 기반 정렬기의 확장이 아닙니다.<br><br>
+                    
+                    Pitch/Roll을 중심으로 다축 간 간섭을 실시간으로 보정하며,<br>
+                    제어 구조 자체를 혁신한 통합형 플랫폼입니다.<br><br>
+                    
+                    블루로봇은 이를 기반으로 Z축과 Yaw축까지 통합해<br>
+                    6축 지능 정렬 시스템으로 진화하고 있습니다.<br><br>
+                    
+                    <strong>정렬은 이제 점과 점을 맞추는 일이 아니라,<br>
+                    공정을 재설계하는 기술이 되어야 합니다.</strong>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Company -->
+    <section class="section company">
+        <div class="container">
+            <div class="company-content">
+                <img src="../assets/logo/Bluerobot_CI.png" alt="BlueRobot" class="company-logo" />
+                <h2 class="section-title">복잡한 기술을 단순하게,<br>정밀한 기술을 누구나 쓰게.</h2>
+                <p style="font-size: 1.2rem; line-height: 1.8; color: #666;">
+                    블루로봇은 정렬 기술을 특정 장비의 영역이 아니라<br>
+                    누구나 접근 가능한 기술 플랫폼으로 만듭니다.<br><br>
+                    
+                    기존의 기계 중심 기술에서 벗어나,<br>
+                    제어 중심, 알고리즘 중심 정렬 시대를 여는 기업입니다.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section contact">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">연락처 및 자료 요청</h2>
+            
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <h3>📄 기술 브로셔</h3>
+                    <p>상세한 기술 사양과 성능 데이터</p>
+                    <a href="#" class="btn btn-primary" style="margin-top: 1rem; display: inline-block;">PDF 다운로드</a>
+                </div>
+                
+                <div class="contact-item">
+                    <h3>📊 CES 평가자료</h3>
+                    <p>성능 평가 결과 및 테스트 데이터</p>
+                    <a href="#" class="btn btn-primary" style="margin-top: 1rem; display: inline-block;">ZIP 요청</a>
+                </div>
+                
+                <div class="contact-item">
+                    <h3>✉️ 이메일 문의</h3>
+                    <p>기술 문의 및 도입 상담</p>
+                    <a href="mailto:ces@bluerobot.co.kr">ces@bluerobot.co.kr</a>
+                </div>
+                
+                <div class="contact-item">
+                    <h3>🌐 소셜 미디어</h3>
+                    <p>최신 소식과 기술 정보</p>
+                    <div style="margin-top: 1rem;">
+                        <a href="#" style="margin-right: 1rem;">LinkedIn</a>
+                        <a href="#" style="margin-right: 1rem;">YouTube</a>
+                        <a href="#">기술 블로그</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 BlueRobot. All rights reserved. | BalanceStage QuadAlign X</p>
+            <p style="margin-top: 0.5rem; opacity: 0.7;">혁신적인 정렬 기술로 제조업의 미래를 만들어갑니다.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Header background on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+            }
+        });
+
+        // Demo video placeholder interaction
+        document.querySelector('.demo-video-placeholder').addEventListener('click', function() {
+            alert('실제 시연 영상을 재생하려면 비디오 파일을 추가해주세요.');
+        });
+    </script>
+</body>
+</html>

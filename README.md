@@ -1,65 +1,62 @@
 # BalanceStage QuadAlign X 랜딩페이지
 
-블루로봇의 BalanceStage QuadAlign X 제품을 소개하는 반응형 랜딩페이지입니다.
+## 프로젝트 개요
+블루로봇(BlueRobot)의 BalanceStage QuadAlign X 제품을 위한 공식 랜딩페이지입니다.
 
-## 🏠 프로젝트 홈 디렉토리
-**C:\project\bluerobot**
+## 제품 정보
+- **제품명**: BalanceStage QuadAlign X
+- **회사명**: 블루로봇(BlueRobot)
+- **주요 기술**: 4축 통합 제어 정렬 플랫폼 (X, Y, Pitch, Roll)
 
-## 📋 페이지 구성
-
-1. **Hero Section**: 메인 비주얼과 핵심 메시지
-2. **Problem & Solution**: 기존 문제점과 QuadAlign X 솔루션
-3. **Key Features**: 주요 기술적 특징 (6개 카드)
-4. **Demo Section**: 실시간 4축 정렬 시연 애니메이션
-5. **Applications**: 적용 분야 (반도체, 광학, 로봇, 우주/방산)
-6. **Roadmap**: 기술 진화 과정 (2축→4축→6축)
-7. **About BlueRobot**: 회사 비전과 철학
-8. **Contact & CTA**: 연락처 및 자료 다운로드
-
-## 🚀 주요 특징
-
-- **반응형 디자인**: 모든 디바이스에서 최적화
-- **모던한 UI/UX**: 그라디언트, 애니메이션 효과
-- **테일윈드 CSS**: 유틸리티 퍼스트 프레임워크
-- **부드러운 인터랙션**: 스크롤 애니메이션, 호버 효과
-
-## 📁 프로젝트 구조
-
+## 파일 구조
 ```
-bluerobot/
-├── index.html          # 메인 랜딩페이지
-├── README.md           # 프로젝트 설명서
-├── open-browser.bat    # 브라우저 실행 스크립트
-├── assets/             # 이미지, 아이콘 등
-├── css/               # 추가 스타일시트
-└── js/                # JavaScript 파일
+C:\project\bluerobot\
+├── website\
+│   └── index.html          # 메인 랜딩페이지
+├── assets\
+│   └── logo\
+│       ├── Bluerobot_CI.png      # 블루로봇 회사 로고
+│       └── Balancestage_BI.png    # 밸런스스테이지 제품 로고
+└── README.md
 ```
 
-## ⚡ 인터랙티브 기능
+## 주요 특징
+- ✅ 현대적이고 프리미엄한 디자인
+- ✅ 반응형 웹 디자인 (모바일 지원)
+- ✅ 4축 정렬 애니메이션 시각화
+- ✅ 실제 로고 이미지 적용
+- ✅ 부드러운 스크롤 네비게이션
+- ✅ 인터랙티브 요소들
 
-- **스크롤 애니메이션**: 섹션별 fade-in 효과
-- **4축 정렬 시뮬레이션**: 실시간 회전 애니메이션
-- **진행률 바**: 정렬 과정 시각화
-- **호버 효과**: 카드와 버튼 상호작용
-- **스무스 스크롤**: 네비게이션 메뉴 연결
-- **반응형 디자인**: 모바일/태블릿/데스크톱 최적화
+## 기술 스택
+- HTML5
+- CSS3 (Grid, Flexbox, Animations)
+- Vanilla JavaScript
+- 반응형 디자인
 
-## 🎨 디자인 시스템
+## 사용 방법
+1. `C:\project\bluerobot\website\index.html` 파일을 웹 브라우저에서 열기
+2. 또는 웹 서버에 업로드하여 호스팅
 
-### 컬러 팔레트
-- **메인 블루**: #2563eb
-- **보조 컬러**: 그린, 퍼플, 오렌지, 옐로우
-- **중성 컬러**: 그레이 스케일
+## 주요 섹션
+1. **Hero Section** - 메인 타이틀과 제품 소개
+2. **Problem & Solution** - 기존 방식 vs QuadAlign X 비교
+3. **Features** - 6가지 핵심 기술 특징
+4. **Demo** - 실시간 시연 영상 섹션
+5. **Applications** - 4가지 주요 적용 분야
+6. **Roadmap** - 기술 진화 방향
+7. **Company** - 블루로봇 회사 소개
+8. **Contact** - 연락처 및 자료 다운로드
 
-## 🚀 사용 방법
+## 로고 정보
+- **BlueRobot CI**: 헤더와 회사 섹션에 적용
+- **BalanceStage BI**: Hero 섹션에 제품 로고로 적용
 
-1. `open-browser.bat` 더블클릭하여 브라우저에서 확인
-2. 또는 `index.html` 파일을 브라우저에서 직접 열기
-
-## 📞 연락처
-
-- **이메일**: ces@bluerobot.co.kr
-- **전화**: +82-2-1234-5678
+## 연락처
+- 이메일: ces@bluerobot.co.kr
+- 기술 문의 및 도입 상담 가능
 
 ---
-Copyright © 2025 BlueRobot. All rights reserved.
+**생성일**: 2025년 8월 5일  
+**버전**: 1.0  
+**제작**: Claude (Anthropic)
