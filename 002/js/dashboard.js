@@ -401,30 +401,61 @@ function initializeKeyboardShortcuts() {
 
 // ===== 대시보드 초기화 함수 =====
 function initializeDashboard() {
-  BlueRobotAdmin.log('Initializing dashboard...');
-  
-  // 차트 초기화
-  setTimeout(() => {
-    initLeadsChart();
-    initChannelChart();
-  }, 100);
-  
-  // 데이터 로드
-  Dashboard.loadDashboardData();
-  
-  // 검색 초기화
-  initializeSearch();
-  
-  // 키보드 단축키 초기화
-  initializeKeyboardShortcuts();
-  
-  // 자동 새로고침 시작
-  Dashboard.startAutoRefresh();
-  
-  // 사이드바 초기화
-  initializeSidebar();
-  
-  BlueRobotAdmin.log('Dashboard initialized successfully');
+  try {
+    BlueRobotAdmin.log('Initializing dashboard...');
+    
+    // 인증 상태 재확인
+    const token = localStorage.getItem('bluerobotAdminToken') || 
+                  sessionStorage.getItem('bluerobotAdminToken');
+    if (!token) {
+      console.error('No token found during dashboard initialization');
+      window.location.href = 'index.html';
+      return;
+    }
+    
+    // 차트 초기화 (안전한 지연)
+    setTimeout(() => {
+      try {
+        if (typeof initLeadsChart === 'function') {
+          initLeadsChart();
+        }
+        if (typeof initChannelChart === 'function') {
+          initChannelChart();
+        }
+      } catch (error) {
+        console.error('Chart initialization error:', error);
+      }
+    }, 200);
+    
+    // 데이터 로드
+    if (Dashboard && typeof Dashboard.loadDashboardData === 'function') {
+      Dashboard.loadDashboardData();
+    }
+    
+    // 검색 초기화
+    if (typeof initializeSearch === 'function') {
+      initializeSearch();
+    }
+    
+    // 키보드 단축키 초기화
+    if (typeof initializeKeyboardShortcuts === 'function') {
+      initializeKeyboardShortcuts();
+    }
+    
+    // 자동 새로고침 시작
+    if (Dashboard && typeof Dashboard.startAutoRefresh === 'function') {
+      Dashboard.startAutoRefresh();
+    }
+    
+    // 사이드바 초기화
+    if (typeof initializeSidebar === 'function') {
+      initializeSidebar();
+    }
+    
+    BlueRobotAdmin.log('Dashboard initialized successfully');
+  } catch (error) {
+    console.error('Dashboard initialization failed:', error);
+  }
 }
 
 // ===== 페이지 언로드 시 정리 =====

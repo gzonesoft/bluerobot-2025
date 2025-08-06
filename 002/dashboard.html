@@ -443,39 +443,102 @@
     <script>
         // 차트 초기화
         document.addEventListener('DOMContentLoaded', function() {
-            // 인증 확인
-            if (!checkAuthentication()) {
-                return; // 인증 실패 시 리다이렉트됨
+            // 안전한 인증 확인
+            if (!isUserAuthenticated()) {
+                console.log('User not authenticated, redirecting to login...');
+                window.location.href = 'index.html';
+                return;
             }
             
             // 사용자 정보 업데이트
             updateUserInfo();
             
             // 대시보드 초기화
-            initializeDashboard();
+            if (typeof initializeDashboard === 'function') {
+                initializeDashboard();
+            }
         });
+        
+        // 안전한 인증 상태 확인
+        function isUserAuthenticated() {
+            console.log('=== Dashboard Auth Check ===');
+            
+            const token = localStorage.getItem('bluerobotAdminToken') || 
+                         sessionStorage.getItem('bluerobotAdminToken');
+            const userStr = localStorage.getItem('bluerobotAdminUser') || 
+                           sessionStorage.getItem('bluerobotAdminUser');
+            
+            console.log('Dashboard - Token:', token ? 'Found' : 'Not found');
+            console.log('Dashboard - User:', userStr ? 'Found' : 'Not found');
+            
+            if (!token || !userStr) {
+                console.log('Dashboard - Missing auth data');
+                return false;
+            }
+            
+            try {
+                const user = JSON.parse(userStr);
+                console.log('Dashboard - Parsed user:', user.email);
+                
+                // 토큰 유효성 간단 체크
+                if (token.includes('.')) {
+                    // JWT 토큰인 경우
+                    const payload = JSON.parse(atob(token.split('.')[1]));
+                    const exp = payload.exp * 1000;
+                    const isValid = Date.now() < exp;
+                    console.log('Dashboard - JWT token valid:', isValid);
+                    return isValid;
+                } else {
+                    // 단순 토큰인 경우
+                    const tokenExpiry = localStorage.getItem('bluerobotAdminTokenExpiry');
+                    if (tokenExpiry) {
+                        const isValid = Date.now() < parseInt(tokenExpiry);
+                        console.log('Dashboard - Simple token valid:', isValid);
+                        return isValid;
+                    }
+                    console.log('Dashboard - No expiry check, assuming valid');
+                    return true; // 개발 단계에서는 유효
+                }
+            } catch (error) {
+                console.error('Dashboard - Token validation error:', error);
+                return false;
+            }
+        }
         
         // 사용자 정보 업데이트
         function updateUserInfo() {
-            if (BlueRobotAuth && BlueRobotAuth.user) {
-                const userAvatar = document.querySelector('.user-avatar');
-                const userName = document.querySelector('.user-name');
-                const userRole = document.querySelector('.user-role');
+            try {
+                const userStr = localStorage.getItem('bluerobotAdminUser') || 
+                               sessionStorage.getItem('bluerobotAdminUser');
                 
-                if (userAvatar) {
-                    userAvatar.textContent = BlueRobotAuth.user.name.charAt(0).toUpperCase();
+                if (userStr) {
+                    const user = JSON.parse(userStr);
+                    
+                    const userAvatar = document.querySelector('.user-avatar');
+                    const userName = document.querySelector('.user-name');
+                    const userRole = document.querySelector('.user-role');
+                    
+                    if (userAvatar && user.name) {
+                        userAvatar.textContent = user.name.charAt(0).toUpperCase();
+                    }
+                    if (userName && user.name) {
+                        userName.textContent = user.name;
+                    }
+                    if (userRole && user.role) {
+                        const roleNames = {
+                            admin: '시스템 관리자',
+                            marketing: '마케팅 담당자',
+                            sales: '영업 담당자'
+                        };
+                        userRole.textContent = roleNames[user.role] || user.role;
+                    }
+                    
+                    console.log('User info updated:', user.name);
+                } else {
+                    console.error('No user data found');
                 }
-                if (userName) {
-                    userName.textContent = BlueRobotAuth.user.name;
-                }
-                if (userRole) {
-                    const roleNames = {
-                        admin: '시스템 관리자',
-                        marketing: '마케팅 담당자',
-                        sales: '영업 담당자'
-                    };
-                    userRole.textContent = roleNames[BlueRobotAuth.user.role] || BlueRobotAuth.user.role;
-                }
+            } catch (error) {
+                console.error('Failed to update user info:', error);
             }
         }
         

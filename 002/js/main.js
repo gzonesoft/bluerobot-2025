@@ -157,9 +157,12 @@ function checkAuthStatus() {
       redirectToLogin();
     }
   } else {
-    // 로그인 페이지가 아닌 경우 리다이렉트
-    if (!window.location.pathname.includes('index.html') && 
-        !window.location.pathname.includes('login')) {
+    // 로그인 페이지가 아닌 경우에만 리다이렉트
+    const isLoginPage = window.location.pathname.includes('index.html') || 
+                       window.location.pathname.endsWith('/') ||
+                       window.location.pathname.includes('login');
+    
+    if (!isLoginPage) {
       redirectToLogin();
     }
   }
@@ -333,13 +336,20 @@ function isTokenValid(token) {
   }
 }
 
-// 로그인 페이지로 리다이렉트
+// 로그인 페이지로 리다이렉트 (main.js용)
 function redirectToLogin() {
-  BlueRobotAdmin.log('Redirecting to login page...');
-  localStorage.removeItem('bluerobotAdminToken');
-  localStorage.removeItem('bluerobotAdminUser');
-  localStorage.removeItem('bluerobotAdminTokenExpiry');
-  window.location.href = 'index.html';
+  // 이미 로그인 페이지인 경우 리다이렉트하지 않음
+  const isLoginPage = window.location.pathname.includes('index.html') || 
+                     window.location.pathname.endsWith('/') ||
+                     window.location.pathname.includes('login');
+  
+  if (!isLoginPage) {
+    BlueRobotAdmin.log('Redirecting to login page...');
+    localStorage.removeItem('bluerobotAdminToken');
+    localStorage.removeItem('bluerobotAdminUser');
+    localStorage.removeItem('bluerobotAdminTokenExpiry');
+    window.location.href = 'index.html';
+  }
 }
 
 // 윈도우 리사이즈 처리
@@ -451,3 +461,10 @@ if (BlueRobotAdmin.debug) {
     }
   };
 }
+
+// ===== MAIN.JS 파일 끝 =====
+// BlueRobot QuadAlign X 관리자 프로그램 메인 유틸리티
+// 버전: 1.0.0
+// 마지막 수정: 2025-08-06
+
+console.log('✅ main.js 파일이 완전히 로드되었습니다.');
