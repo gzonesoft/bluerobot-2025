@@ -1,0 +1,556 @@
+/* ===== RESPONSIVE DESIGN STYLES ===== */
+
+/* 반응형 브레이크포인트 정의 */
+/* xs: 0px - 639px (모바일 세로) */
+/* sm: 640px - 767px (모바일 가로, 작은 태블릿) */
+/* md: 768px - 1023px (태블릿) */
+/* lg: 1024px - 1279px (소형 데스크톱) */
+/* xl: 1280px - 1535px (중형 데스크톱) */
+/* 2xl: 1536px+ (대형 데스크톱) */
+
+/* 2XL - 대형 데스크톱 (1536px+) */
+@media (min-width: 1536px) {
+  .dashboard-content {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  
+  .container {
+    max-width: 1400px;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+  
+  .charts-grid {
+    grid-template-columns: 3fr 1fr;
+  }
+}
+
+/* XL - 중형 데스크톱 (1280px - 1535px) */
+@media (max-width: 1535px) and (min-width: 1280px) {
+  .dashboard-content {
+    max-width: 1200px;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+/* LG - 소형 데스크톱 (1024px - 1279px) */
+@media (max-width: 1279px) and (min-width: 1024px) {
+  :root {
+    --sidebar-width: 260px;
+  }
+  
+  .sidebar {
+    width: var(--sidebar-width);
+  }
+  
+  .main-content {
+    margin-left: var(--sidebar-width);
+  }
+  
+  .dashboard-content {
+    padding: var(--spacing-lg) var(--spacing-xl);
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+  
+  .header-search {
+    width: 250px;
+  }
+}
+
+/* MD - 태블릿 (768px - 1023px) */
+@media (max-width: 1023px) and (min-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform var(--transition-normal);
+  }
+  
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  
+  .sidebar-toggle {
+    display: flex;
+  }
+  
+  .main-content {
+    margin-left: 0;
+  }
+  
+  .dashboard-header {
+    padding: var(--spacing-sm) var(--spacing-lg);
+  }
+  
+  .dashboard-content {
+    padding: var(--spacing-lg);
+  }
+  
+  .header-content {
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+  }
+  
+  .header-search {
+    width: 200px;
+    order: 3;
+    flex-basis: 100%;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-sm);
+  }
+  
+  .charts-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
+  }
+  
+  .activity-section {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
+  }
+  
+  .chart-container {
+    height: 250px;
+  }
+  
+  /* 테이블 반응형 */
+  .table-container {
+    overflow-x: auto;
+  }
+  
+  .table {
+    min-width: 600px;
+  }
+  
+  /* 모달 조정 */
+  .modal {
+    max-width: 90vw;
+    margin: var(--spacing-sm);
+  }
+  
+  .modal-header,
+  .modal-body,
+  .modal-footer {
+    padding: var(--spacing-sm);
+  }
+}
+
+/* SM - 모바일 가로, 작은 태블릿 (640px - 767px) */
+@media (max-width: 767px) and (min-width: 640px) {
+  .sidebar {
+    width: 280px;
+    transform: translateX(-100%);
+  }
+  
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  
+  .dashboard-header {
+    padding: var(--spacing-sm) var(--spacing-lg);
+  }
+  
+  .header-content {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-sm);
+  }
+  
+  .header-title {
+    font-size: 1.25rem;
+  }
+  
+  .header-actions {
+    justify-content: space-between;
+  }
+  
+  .header-search {
+    flex: 1;
+    max-width: none;
+  }
+  
+  .dashboard-content {
+    padding: var(--spacing-sm);
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-sm);
+  }
+  
+  .stat-card {
+    padding: var(--spacing-sm);
+  }
+  
+  .stat-value {
+    font-size: 1.5rem;
+  }
+  
+  .chart-card {
+    padding: var(--spacing-sm);
+  }
+  
+  .chart-container {
+    height: 200px;
+  }
+  
+  .quick-actions-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .quick-action-btn {
+    padding: var(--spacing-sm);
+  }
+  
+  .activity-list {
+    max-height: 300px;
+  }
+}
+
+/* XS - 모바일 세로 (0px - 639px) */
+@media (max-width: 639px) {
+  :root {
+    --spacing-xl: 2rem;
+    --spacing-2xl: 2.5rem;
+  }
+  
+  .sidebar {
+    width: 100%;
+    max-width: 280px;
+    transform: translateX(-100%);
+  }
+  
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  
+  .sidebar-toggle {
+    top: var(--spacing-sm);
+    left: var(--spacing-sm);
+    width: 36px;
+    height: 36px;
+  }
+  
+  .dashboard-header {
+    padding: var(--spacing-sm);
+    margin-top: 48px; /* 토글 버튼 공간 확보 */
+  }
+  
+  .header-content {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-xs);
+  }
+  
+  .header-title {
+    font-size: 1.125rem;
+    margin-top: var(--spacing-xs);
+  }
+  
+  .header-breadcrumb {
+    font-size: 0.8125rem;
+  }
+  
+  .header-actions {
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+  
+  .header-search {
+    order: -1;
+  }
+  
+  .search-input {
+    font-size: 16px; /* iOS 줌 방지 */
+  }
+  
+  .dashboard-content {
+    padding: var(--spacing-xs);
+  }
+  
+  /* 통계 카드 */
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xs);
+  }
+  
+  .stat-card {
+    padding: var(--spacing-sm);
+  }
+  
+  .stat-header {
+    margin-bottom: var(--spacing-xs);
+  }
+  
+  .stat-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+  
+  .stat-value {
+    font-size: 1.25rem;
+  }
+  
+  .stat-title {
+    font-size: 0.8125rem;
+  }
+  
+  /* 차트 */
+  .charts-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xs);
+  }
+  
+  .chart-card {
+    padding: var(--spacing-sm);
+  }
+  
+  .chart-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .chart-title {
+    font-size: 1rem;
+  }
+  
+  .chart-controls {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .chart-container {
+    height: 180px;
+  }
+  
+  /* 활동 피드 */
+  .activity-section {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xs);
+  }
+  
+  .activity-card,
+  .quick-actions-card,
+  .system-status-card {
+    overflow: hidden;
+  }
+  
+  .activity-header,
+  .quick-actions-header,
+  .system-status-header {
+    padding: var(--spacing-sm);
+  }
+  
+  .activity-title,
+  .quick-actions-title,
+  .system-status-title {
+    font-size: 1rem;
+  }
+  
+  .activity-list {
+    padding: var(--spacing-xs);
+    max-height: 250px;
+  }
+  
+  .activity-item {
+    padding: var(--spacing-xs);
+    gap: var(--spacing-xs);
+  }
+  
+  .activity-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+  
+  .activity-text {
+    font-size: 0.8125rem;
+  }
+  
+  .activity-meta {
+    font-size: 0.6875rem;
+  }
+  
+  /* 빠른 액션 */
+  .quick-actions-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-sm);
+  }
+  
+  .quick-action-btn {
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: var(--spacing-sm);
+    text-align: left;
+  }
+  
+  .quick-action-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+    margin-bottom: 0;
+  }
+  
+  .quick-action-text {
+    font-size: 0.8125rem;
+  }
+  
+  /* 시스템 상태 */
+  .status-list {
+    padding: var(--spacing-sm);
+  }
+  
+  .status-item {
+    padding: var(--spacing-xs) 0;
+  }
+  
+  .status-label,
+  .status-value {
+    font-size: 0.8125rem;
+  }
+  
+  /* 테이블 */
+  .table th,
+  .table td {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: 0.8125rem;
+  }
+  
+  .table-container {
+    margin: 0 calc(-1 * var(--spacing-xs));
+  }
+  
+  /* 폼 요소 */
+  .form-input,
+  .form-label {
+    font-size: 16px; /* iOS 줌 방지 */
+  }
+  
+  .btn {
+    min-height: 44px; /* 터치 친화적 크기 */
+    font-size: 0.925rem;
+  }
+  
+  /* 모달 */
+  .modal-overlay {
+    padding: var(--spacing-xs);
+  }
+  
+  .modal {
+    max-width: 100%;
+    max-height: 90vh;
+  }
+  
+  .modal-header,
+  .modal-body,
+  .modal-footer {
+    padding: var(--spacing-sm);
+  }
+  
+  .modal-title {
+    font-size: 1.125rem;
+  }
+  
+  /* 토스트 알림 */
+  .toast-container {
+    left: var(--spacing-xs);
+    right: var(--spacing-xs);
+    top: var(--spacing-xs);
+  }
+  
+  .toast {
+    padding: var(--spacing-sm);
+  }
+  
+  .toast-title {
+    font-size: 0.8125rem;
+  }
+  
+  .toast-message {
+    font-size: 0.75rem;
+  }
+  
+  /* 드롭다운 */
+  .dropdown-menu {
+    position: fixed;
+    left: var(--spacing-xs) !important;
+    right: var(--spacing-xs);
+    width: auto;
+    min-width: auto;
+  }
+}
+
+/* 고해상도 디스플레이 최적화 */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .sidebar-logo img,
+  .user-avatar,
+  .stat-icon,
+  .activity-icon,
+  .quick-action-icon {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* 다크모드 미디어 쿼리 (향후 확장용) */
+@media (prefers-color-scheme: dark) {
+  /* 다크모드 스타일은 향후 추가 예정 */
+}
+
+/* 접근성 - 모션 감소 선호 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .loading-skeleton {
+    animation: none;
+  }
+}
+
+/* 인쇄 스타일 */
+@media print {
+  .sidebar,
+  .sidebar-toggle,
+  .header-actions,
+  .modal-overlay,
+  .toast-container {
+    display: none !important;
+  }
+  
+  .main-content {
+    margin-left: 0 !important;
+  }
+  
+  .dashboard-content {
+    padding: 0 !important;
+  }
+  
+  .card,
+  .table-container {
+    break-inside: avoid;
+  }
+  
+  .chart-container {
+    height: auto !important;
+  }
+}

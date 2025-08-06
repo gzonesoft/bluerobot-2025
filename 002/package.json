@@ -1,0 +1,51 @@
+{
+  "name": "balancestage-quadalign-x-admin",
+  "version": "1.0.0",
+  "description": "BalanceStage QuadAlign X 관리자 프로그램 웹 애플리케이션",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8001",
+    "serve": "npx serve . --listen 8001",
+    "dev": "npx live-server --port=8001",
+    "build": "echo 'Static website - no build process needed'",
+    "lint": "echo 'Linting not configured yet'"
+  },
+  "keywords": [
+    "BlueRobot",
+    "BalanceStage",
+    "QuadAlign X",
+    "admin panel",
+    "dashboard",
+    "lead management",
+    "community management",
+    "analytics"
+  ],
+  "author": {
+    "name": "BlueRobot",
+    "email": "admin@bluerobot.co.kr",
+    "url": "https://www.bluerobot.co.kr"
+  },
+  "license": "Proprietary",
+  "homepage": ".",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bluerobot/balancestage-admin.git"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "serve": "^14.2.0"
+  },
+  "dependencies": {},
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "> 1%",
+    "not dead"
+  ],
+  "config": {
+    "port": 8001,
+    "host": "localhost"
+  }
+}

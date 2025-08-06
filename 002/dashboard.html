@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BlueRobot QuadAlign X 관리자 대시보드">
+    <meta name="robots" content="noindex, nofollow">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../assets/logo/Bluerobot_CI.svg">
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    
+    <title>대시보드 - BlueRobot QuadAlign X 관리자</title>
+</head>
+<body>
+    <!-- 대시보드 레이아웃 -->
+    <div class="dashboard-layout">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+            <!-- 사이드바 헤더 -->
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="sidebar-logo">
+                    <img src="../assets/logo/Bluerobot_CI.svg" alt="BlueRobot" style="width: 32px; height: 32px;">
+                    <div>
+                        <div class="sidebar-brand">QuadAlign X</div>
+                        <div class="sidebar-subtitle">관리자 패널</div>
+                    </div>
+                </a>
+            </div>
+            
+            <!-- 사이드바 네비게이션 -->
+            <nav class="sidebar-nav">
+                <!-- 메인 -->
+                <div class="nav-section">
+                    <div class="nav-section-title">메인</div>
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="dashboard.html" class="nav-link active">
+                                <div class="nav-icon"><i class="fas fa-chart-line"></i></div>
+                                <span class="nav-text">대시보드</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <div class="nav-icon"><i class="fas fa-bell"></i></div>
+                                <span class="nav-text">알림</span>
+                                <span class="nav-badge">3</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- 콘텐츠 관리 -->
+                <div class="nav-section">
+                    <div class="nav-section-title">콘텐츠 관리</div>
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="pages/landing-management.html" class="nav-link">
+                                <div class="nav-icon"><i class="fas fa-globe"></i></div>
+                                <span class="nav-text">랜딩페이지</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="pages/leads-management.html" class="nav-link">
+                                <div class="nav-icon"><i class="fas fa-users"></i></div>
+                                <span class="nav-text">리드 관리</span>
+                                <span class="nav-badge success">12</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- 커뮤니티 -->
+                <div class="nav-section">
+                    <div class="nav-section-title">커뮤니티</div>
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="pages/community-management.html" class="nav-link">
+                                <div class="nav-icon"><i class="fas fa-comments"></i></div>
+                                <span class="nav-text">커뮤니티</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <div class="nav-icon"><i class="fas fa-user-graduate"></i></div>
+                                <span class="nav-text">멘토링</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- 분석 -->
+                <div class="nav-section">
+                    <div class="nav-section-title">분석</div>
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="pages/analytics.html" class="nav-link">
+                                <div class="nav-icon"><i class="fas fa-chart-bar"></i></div>
+                                <span class="nav-text">데이터 분석</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <div class="nav-icon"><i class="fas fa-file-alt"></i></div>
+                                <span class="nav-text">리포트</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- 시스템 -->
+                <div class="nav-section">
+                    <div class="nav-section-title">시스템</div>
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="pages/settings.html" class="nav-link">
+                                <div class="nav-icon"><i class="fas fa-cog"></i></div>
+                                <span class="nav-text">설정</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" onclick="logout(); return false;">
+                                <div class="nav-icon"><i class="fas fa-sign-out-alt"></i></div>
+                                <span class="nav-text">로그아웃</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            
+            <!-- 사이드바 푸터 -->
+            <div class="sidebar-footer">
+                <div class="user-profile" onclick="showUserMenu()">
+                    <div class="user-avatar">A</div>
+                    <div class="user-info">
+                        <div class="user-name">관리자</div>
+                        <div class="user-role">시스템 관리자</div>
+                    </div>
+                    <div class="user-menu">
+                        <i class="fas fa-chevron-up"></i>
+                    </div>
+                </div>
+            </div>
+        </aside>        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 대시보드 헤더 -->
+            <header class="dashboard-header">
+                <div class="header-content">
+                    <div>
+                        <h1 class="header-title">대시보드</h1>
+                        <div class="header-breadcrumb">
+                            <span>홈</span>
+                            <span class="breadcrumb-separator">/</span>
+                            <span>대시보드</span>
+                        </div>
+                    </div>
+                    
+                    <div class="header-actions">
+                        <!-- 검색 -->
+                        <div class="header-search">
+                            <input type="text" class="search-input" placeholder="검색...">
+                            <i class="search-icon fas fa-search"></i>
+                        </div>
+                        
+                        <!-- 알림 -->
+                        <div class="header-notifications">
+                            <button type="button" class="notification-btn" onclick="showNotifications()">
+                                <i class="fas fa-bell"></i>
+                                <span class="notification-badge">3</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- 대시보드 콘텐츠 -->
+            <div class="dashboard-content">
+                <!-- 통계 카드 그리드 -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <h3 class="stat-title">총 리드 수</h3>
+                            <div class="stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value">1,247</div>
+                        <div class="stat-change positive">
+                            <i class="stat-change-icon fas fa-arrow-up"></i>
+                            <span>+12.5% 이번 달</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card success">
+                        <div class="stat-header">
+                            <h3 class="stat-title">전환율</h3>
+                            <div class="stat-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value">24.8%</div>
+                        <div class="stat-change positive">
+                            <i class="stat-change-icon fas fa-arrow-up"></i>
+                            <span>+3.2% 지난주 대비</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card warning">
+                        <div class="stat-header">
+                            <h3 class="stat-title">활성 사용자</h3>
+                            <div class="stat-icon">
+                                <i class="fas fa-user-check"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value">892</div>
+                        <div class="stat-change neutral">
+                            <i class="stat-change-icon fas fa-minus"></i>
+                            <span>변화 없음</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card error">
+                        <div class="stat-header">
+                            <h3 class="stat-title">미처리 문의</h3>
+                            <div class="stat-icon">
+                                <i class="fas fa-exclamation-circle"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value">23</div>
+                        <div class="stat-change negative">
+                            <i class="stat-change-icon fas fa-arrow-down"></i>
+                            <span>-2 어제 대비</span>
+                        </div>
+                    </div>
+                </div>                
+                <!-- 차트 그리드 -->
+                <div class="charts-grid">
+                    <!-- 메인 차트 -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title">리드 유입 추이</h3>
+                            <div class="chart-controls">
+                                <button class="chart-btn active" data-period="7days">7일</button>
+                                <button class="chart-btn" data-period="30days">30일</button>
+                                <button class="chart-btn" data-period="90days">90일</button>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="leadsChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <!-- 소스별 차트 -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title">유입 채널</h3>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="channelChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 활동 섹션 -->
+                <div class="activity-section">
+                    <!-- 최근 활동 -->
+                    <div class="activity-card">
+                        <div class="activity-header">
+                            <h3 class="activity-title">최근 활동</h3>
+                        </div>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <div class="activity-icon success">
+                                    <i class="fas fa-user-plus"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-text">새로운 리드가 등록되었습니다.</div>
+                                    <div class="activity-meta">
+                                        <span class="activity-time">2분 전</span>
+                                        <span class="activity-badge">마케팅</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-download"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-text">기술 브로셔가 다운로드되었습니다.</div>
+                                    <div class="activity-meta">
+                                        <span class="activity-time">5분 전</span>
+                                        <span class="activity-badge">콘텐츠</span>
+                                    </div>
+                                </div>
+                            </div>                            
+                            <div class="activity-item">
+                                <div class="activity-icon warning">
+                                    <i class="fas fa-comment"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-text">새로운 문의가 접수되었습니다.</div>
+                                    <div class="activity-meta">
+                                        <span class="activity-time">12분 전</span>
+                                        <span class="activity-badge">고객지원</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="activity-item">
+                                <div class="activity-icon success">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-text">랜딩페이지가 업데이트되었습니다.</div>
+                                    <div class="activity-meta">
+                                        <span class="activity-time">1시간 전</span>
+                                        <span class="activity-badge">웹사이트</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <div class="activity-text">커뮤니티에 새 게시물이 작성되었습니다.</div>
+                                    <div class="activity-meta">
+                                        <span class="activity-time">2시간 전</span>
+                                        <span class="activity-badge">커뮤니티</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                    
+                    <!-- 빠른 액션 & 시스템 상태 -->
+                    <div style="display: flex; flex-direction: column; gap: var(--spacing-lg);">
+                        <!-- 빠른 액션 -->
+                        <div class="quick-actions-card">
+                            <div class="quick-actions-header">
+                                <h3 class="quick-actions-title">빠른 액션</h3>
+                            </div>
+                            <div class="quick-actions-grid">
+                                <a href="pages/landing-management.html" class="quick-action-btn">
+                                    <div class="quick-action-icon">
+                                        <i class="fas fa-edit"></i>
+                                    </div>
+                                    <span class="quick-action-text">콘텐츠 편집</span>
+                                </a>
+                                
+                                <a href="pages/leads-management.html" class="quick-action-btn">
+                                    <div class="quick-action-icon">
+                                        <i class="fas fa-plus"></i>
+                                    </div>
+                                    <span class="quick-action-text">리드 추가</span>
+                                </a>
+                                
+                                <a href="pages/analytics.html" class="quick-action-btn">
+                                    <div class="quick-action-icon">
+                                        <i class="fas fa-chart-bar"></i>
+                                    </div>
+                                    <span class="quick-action-text">리포트 생성</span>
+                                </a>
+                                
+                                <a href="pages/settings.html" class="quick-action-btn">
+                                    <div class="quick-action-icon">
+                                        <i class="fas fa-cog"></i>
+                                    </div>
+                                    <span class="quick-action-text">시스템 설정</span>
+                                </a>
+                            </div>
+                        </div>                        
+                        <!-- 시스템 상태 -->
+                        <div class="system-status-card">
+                            <div class="system-status-header">
+                                <h3 class="system-status-title">시스템 상태</h3>
+                            </div>
+                            <div class="status-list">
+                                <div class="status-item">
+                                    <div class="status-label">서버 상태</div>
+                                    <div class="status-value">
+                                        <span class="status-indicator"></span>
+                                        <span class="status-text success">정상</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="status-item">
+                                    <div class="status-label">데이터베이스</div>
+                                    <div class="status-value">
+                                        <span class="status-indicator"></span>
+                                        <span class="status-text success">연결됨</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="status-item">
+                                    <div class="status-label">API 상태</div>
+                                    <div class="status-value">
+                                        <span class="status-indicator warning"></span>
+                                        <span class="status-text warning">지연</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="status-item">
+                                    <div class="status-label">스토리지</div>
+                                    <div class="status-value">
+                                        <span class="status-indicator"></span>
+                                        <span class="status-text success">78% 사용</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>    
+    <!-- 사이드바 토글 (모바일) -->
+    <button type="button" class="sidebar-toggle" onclick="toggleMobileSidebar()">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <!-- 토스트 알림 컨테이너 -->
+    <div id="toastContainer" class="toast-container"></div>
+    
+    <!-- JavaScript Files -->
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/dashboard.js"></script>
+    
+    <!-- 차트 초기화 스크립트 -->
+    <script>
+        // 차트 초기화
+        document.addEventListener('DOMContentLoaded', function() {
+            // 인증 확인
+            if (!checkAuthentication()) {
+                return; // 인증 실패 시 리다이렉트됨
+            }
+            
+            // 사용자 정보 업데이트
+            updateUserInfo();
+            
+            // 대시보드 초기화
+            initializeDashboard();
+        });
+        
+        // 사용자 정보 업데이트
+        function updateUserInfo() {
+            if (BlueRobotAuth && BlueRobotAuth.user) {
+                const userAvatar = document.querySelector('.user-avatar');
+                const userName = document.querySelector('.user-name');
+                const userRole = document.querySelector('.user-role');
+                
+                if (userAvatar) {
+                    userAvatar.textContent = BlueRobotAuth.user.name.charAt(0).toUpperCase();
+                }
+                if (userName) {
+                    userName.textContent = BlueRobotAuth.user.name;
+                }
+                if (userRole) {
+                    const roleNames = {
+                        admin: '시스템 관리자',
+                        marketing: '마케팅 담당자',
+                        sales: '영업 담당자'
+                    };
+                    userRole.textContent = roleNames[BlueRobotAuth.user.role] || BlueRobotAuth.user.role;
+                }
+            }
+        }
+        
+        // 모바일 사이드바 토글
+        function toggleMobileSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            if (sidebar) {
+                if (sidebar.classList.contains('open')) {
+                    sidebar.classList.remove('open');
+                } else {
+                    sidebar.classList.add('open');
+                }
+            }
+        }
+        
+        // 사용자 메뉴 표시
+        function showUserMenu() {
+            if (typeof showToast === 'function') {
+                showToast('사용자 메뉴 기능은 준비 중입니다.', 'info');
+            }
+        }
+        
+        // 알림 표시
+        function showNotifications() {
+            if (typeof showToast === 'function') {
+                showToast('알림 기능은 준비 중입니다.', 'info');
+            }
+        }
+        
+        // 외부 클릭 시 모바일 사이드바 닫기
+        document.addEventListener('click', function(e) {
+            const sidebar = document.querySelector('.sidebar');
+            const toggle = document.querySelector('.sidebar-toggle');
+            
+            if (window.innerWidth < 1024 && 
+                sidebar && sidebar.classList.contains('open') &&
+                !sidebar.contains(e.target) && 
+                !toggle.contains(e.target)) {
+                sidebar.classList.remove('open');
+            }
+        });
+    </script>
+</body>
+</html>
