@@ -50,12 +50,13 @@ body {
     padding: 1rem 2rem;
     max-width: 1200px;
     margin: 0 auto;
+    gap: 2rem; /* 로고와 nav-links 사이 간격 */
 }
 
 .logo {
     display: flex;
     align-items: center;
-    gap: 10px;
+    flex-shrink: 0; /* 이미지 크기 고정 */
 }
 
 .logo a {
@@ -72,12 +73,16 @@ body {
 .logo img {
     height: 48px;
     width: auto;
+    min-width: 120px; /* 최소 너비 설정 */
 }
 
 .nav-links {
     display: flex;
     gap: 2rem;
     list-style: none;
+    flex: 1; /* 남은 공간 차지 */
+    justify-content: center; /* 중앙 정렬 */
+    margin: 0 2rem; /* 양쪽 마진 추가 */
 }
 
 .nav-links a {
@@ -85,10 +90,96 @@ body {
     color: #0F172A;
     font-weight: 500;
     transition: color 0.2s ease;
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
 }
 
 .nav-links a:hover {
     color: #38BDF8;
+}
+
+/* Language Toggle Button */
+.language-toggle {
+    flex-shrink: 0;
+}
+
+.lang-toggle-btn {
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 60px;
+    text-align: center;
+    border: 2px solid transparent;
+    outline: none;
+}
+
+/* 영어 선택 상태 (파란 배경) */
+.lang-toggle-btn[data-current="en"] {
+    background-color: #2563EB !important;
+    color: #FFFFFF !important;
+    border-color: #2563EB !important;
+}
+
+.lang-toggle-btn[data-current="en"]:hover {
+    background-color: #1D4ED8 !important;
+    border-color: #1D4ED8 !important;
+}
+
+/* 한국어 선택 상태 (흰 배경) */
+.lang-toggle-btn[data-current="ko"] {
+    background-color: #FFFFFF !important;
+    color: #2563EB !important;
+    border: 2px solid #2563EB !important;
+}
+
+.lang-toggle-btn[data-current="ko"]:hover {
+    background-color: #EFF6FF !important;
+}
+    transition: all 0.3s ease;
+    min-width: 60px;
+    text-align: center;
+    border: 2px solid transparent;
+}
+
+/* 영어 선택 상태 (파란 배경) */
+.lang-toggle-btn[data-current="en"] {
+    background: #2563EB;
+    color: #FFFFFF;
+    border-color: #2563EB;
+}
+
+.lang-toggle-btn[data-current="en"]:hover {
+    background: #1D4ED8;
+    border-color: #1D4ED8;
+}
+
+/* 한국어 선택 상태 (흰 배경) */
+.lang-toggle-btn[data-current="ko"] {
+    background: #FFFFFF;
+    color: #2563EB;
+    border-color: #2563EB;
+}
+
+.lang-toggle-btn[data-current="ko"]:hover {
+    background: #EFF6FF;
+}
+
+/* Mobile Responsive - 더 큰 breakpoint */
+@media (max-width: 1024px) {
+    .nav {
+        padding: 1rem;
+    }
+    
+    .nav-links {
+        display: none; /* 모바일에서 메뉴 숨김 */
+    }
+    
+    .logo img {
+        height: 40px;
+        min-width: 100px;
+    }
 }
 
 /* Section Styles */

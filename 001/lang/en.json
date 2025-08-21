@@ -1,0 +1,174 @@
+{
+  "nav": {
+    "features": "Features",
+    "demo": "Live Demo",
+    "applications": "Applications",
+    "future": "Future",
+    "contact": "Contact",
+    "homepage": "Company Website"
+  },
+  "hero": {
+    "title": "Redesigning Alignment.<br>Transforming the Future of Manufacturing.",
+    "subtitle": "BalanceStage QuadAlign X is the world's first high-load alignment platform unifying four axes (X, Y, Pitch, Roll) in a single control.<br><br>Alignment is no longer for experts — with one command, anyone can achieve precision.",
+    "cta": {
+      "primary": "Watch Demo",
+      "secondary": "View Tech Summary"
+    }
+  },
+  "problemSolution": {
+    "title": "Conventional alignment was complex.<br>We redesigned it as a platform.",
+    "description": "The greatest challenge in precision manufacturing is angle alignment (Pitch/Roll) under high loads. Traditional methods relied on manual work and complex controls.",
+    "subtitle": "QuadAlign X synchronizes four axes on a single platform, redefining alignment through real-time correction.",
+    "conventional": {
+      "title": "Conventional Methods",
+      "items": [
+        "Complex parallel structures",
+        "Repeated adjustments by skilled operators",
+        "Errors from axis interference",
+        "Long alignment times",
+        "High training costs"
+      ]
+    },
+    "quadAlign": {
+      "title": "QuadAlign X",
+      "items": [
+        "4-axis integrated control platform",
+        "Automated alignment and correction",
+        "Real-time interference compensation algorithm",
+        "Alignment completed within 3 seconds",
+        "Intuitive operation"
+      ]
+    }
+  }
+}  "features": {
+    "title": "Not added, but unified",
+    "subtitle": "Transforming alignment complexity into one simple control",
+    "cards": [
+      {
+        "icon": "🚀",
+        "title": "4-Axis Integrated Control Platform",
+        "description": "By unifying four axes — X, Y, Pitch, and Roll — into a single control system, we have simplified the complex alignment process."
+      },
+      {
+        "icon": "🎯",
+        "title": "2μm Precision",
+        "description": "Maintains 2μm-level parallel precision and guarantees repeatability even under heavy loads of several hundred kilograms."
+      },
+      {
+        "icon": "⚡",
+        "title": "Correction Within 2 Seconds",
+        "description": "Automatically detects alignment conditions and completes simultaneous correction of all axes within 2 seconds."
+      },
+      {
+        "icon": "🧠",
+        "title": "Real-Time Interference Compensation",
+        "description": "An embedded algorithm detects and corrects axis interference in real time, ensuring precise alignment."
+      },
+      {
+        "icon": "🔄",
+        "title": "Scalable Architecture",
+        "description": "An evolutionary design expandable to the Z and Yaw axes, ready to meet future requirements."
+      },
+      {
+        "icon": "💎",
+        "title": "World's First Technology",
+        "description": "As the world's first four-axis synchronized alignment platform, it delivers truly innovative technology."
+      }
+    ]
+  }  "liveDemo": {
+    "title": "Real-Time Four-Axis Alignment Demo",
+    "description": "QuadAlign X detects positional errors in real time and automatically calculates and controls all four axes simultaneously.",
+    "details": "This process is completed with a single command — without repeated adjustments — while maintaining precision and repeatability even under high loads, ensuring angle axes remain stable."
+  },
+  "applications": {
+    "title": "Applications",
+    "subtitle": "Making alignment simple means transforming the entire quality and efficiency of manufacturing.",
+    "cards": [
+      {
+        "icon": "💻",
+        "title": "Semiconductor Packaging & Assembly",
+        "description": "Delivers outstanding performance in precise chip alignment and bonding processes."
+      },
+      {
+        "icon": "🔍",
+        "title": "Optical Lens & Sensor Alignment",
+        "description": "Automates the alignment of lenses and sensors in high-precision optical systems."
+      },
+      {
+        "icon": "🤖",
+        "title": "Precision Robot Calibration",
+        "description": "Supports precise calibration and positional correction of industrial robots."
+      },
+      {
+        "icon": "🚀",
+        "title": "Aerospace & Defense Precision Assembly",
+        "description": "Applied to automation in aerospace and defense fields where extreme precision is required."
+      }
+    ]
+  }  "intelligentEcosystem": {
+    "title": "Intelligent Alignment Ecosystem",
+    "subtitle": "Beyond QuadAlign X, it evolves into an integrated solution that automates and optimizes the entire alignment process.",
+    "app": {
+      "title": "Smart App for Alignment Recipe Management",
+      "serviceFeatures": {
+        "title": "Service Features",
+        "items": [
+          "Save optimal alignment 'recipes' for each product",
+          "Apply recipes with one touch through the app",
+          "AI-powered suggestions for optimal recipes",
+          "Analyze past data and enhance performance"
+        ]
+      },
+      "keyStrengths": {
+        "title": "Key Strengths",
+        "items": [
+          "Ensures standardized, high-quality alignment",
+          "Shortens time-to-market for new products",
+          "Independent of operator skill level",
+          "Continuous performance optimization"
+        ]
+      },
+      "need": {
+        "title": "Need",
+        "items": [
+          "Secure process repeatability and consistency",
+          "Standardize production quality",
+          "Maximize operational efficiency",
+          "Reduce dependence on skilled operators"
+        ]
+      }
+    },
+    "vision": "Vision: Fully Autonomous Alignment System",
+    "visionDetail": "equipment → platform → ecosystem<br>Building a fully autonomous alignment system that automates and optimizes every step of the process."
+  }  "roadmap": {
+    "title": "From Two Axes to a New Standard in Alignment Control",
+    "content": "QuadAlign X is not a two-axis extension. Centered on Pitch and Roll, it revolutionizes control with real-time multi-axis compensation. BlueRobot is evolving this into a six-axis intelligent alignment system.",
+    "vision": "Alignment is no longer about matching points — it must become the technology that redesigns the process."
+  },
+  "companyVision": {
+    "title": "Making complex technology simple.<br>Making precision technology accessible to everyone.",
+    "description": "BlueRobot transforms alignment technology from the domain of specific equipment into an open, accessible technology platform.",
+    "mission": "We move beyond machine-centered methods to lead a new era of alignment driven by control and algorithms."
+  },
+  "contact": {
+    "tagline": "Redesigning Alignment.<br>Transforming the Future of Manufacturing.",
+    "address": {
+      "line1": "#308, Sejong Startup Nurturing Center",
+      "line2": "2296 Sejong-ro, Jochiwon-eup",
+      "line3": "Sejong Special Self-Governing City"
+    },
+    "navigation": {
+      "productInfo": "Product Information",
+      "features": "Technical Features",
+      "applications": "Applications",
+      "demo": "Demo Video",
+      "roadmap": "Technology Roadmap"
+    },
+    "resources": {
+      "title": "Resources & Inquiries",
+      "brochure": "Technical Brochure (PDF)",
+      "email": "Email Inquiry",
+      "profile": "Company Profile"
+    }
+  }
+}

@@ -1,0 +1,154 @@
+/**
+ * Language Switcher Styles
+ * Styles for the language toggle buttons and related UI elements
+ */
+
+/* Language Switcher Container */
+.language-switcher {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  padding-left: 20px;
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Language Buttons */
+.lang-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.lang-btn:hover {
+  color: rgba(255, 255, 255, 0.9);
+  transform: translateY(-1px);
+}
+
+.lang-btn.active {
+  color: #38BDF8;
+  font-weight: 700;
+}
+
+.lang-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 2px;
+  background: #38BDF8;
+  border-radius: 1px;
+}
+
+/* Language Divider */
+.lang-divider {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 12px;
+  user-select: none;
+}
+
+/* Dark Theme Support */
+.section-dark .language-switcher {
+  border-left-color: rgba(255, 255, 255, 0.2);
+}
+
+.section-dark .lang-btn {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.section-dark .lang-btn:hover {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Light Theme Support */
+.section-light .language-switcher {
+  border-left-color: rgba(15, 23, 42, 0.2);
+}
+
+.section-light .lang-btn {
+  color: rgba(15, 23, 42, 0.6);
+}
+
+.section-light .lang-btn:hover {
+  color: rgba(15, 23, 42, 0.9);
+}
+
+.section-light .lang-btn.active {
+  color: #2563EB;
+}
+
+.section-light .lang-btn.active::after {
+  background: #2563EB;
+}
+
+/* Mobile Responsive Design */
+@media (max-width: 768px) {
+  .language-switcher {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 1000;
+    background: rgba(15, 23, 42, 0.95);
+    padding: 8px 12px;
+    border-radius: 25px;
+    border-left: none;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .lang-btn {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+  
+  .lang-divider {
+    font-size: 10px;
+  }
+}
+
+/* Language Transition Animation */
+body {
+  transition: opacity 0.3s ease;
+}
+
+/* Language-specific font adjustments */
+html[lang="ko"] body {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Malgun Gothic', sans-serif;
+}
+
+html[lang="en"] body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Accessibility */
+.lang-btn:focus {
+  outline: 2px solid #38BDF8;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Loading state for language switch */
+body.language-switching {
+  pointer-events: none;
+}
+
+body.language-switching::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: 9999;
+}

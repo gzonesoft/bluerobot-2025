@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BalanceStage QuadAlign X - 블루로봇</title>
+    <title>BalanceStage QuadAlign X - BlueRobot</title>
+    <meta name="description" content="World's first 4-axis integrated alignment platform">
+    <meta name="keywords" content="alignment system, 4-axis control, precision manufacturing, BlueRobot">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -15,12 +17,48 @@
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/base.css?v=2">
     <link rel="stylesheet" href="css/hero.css">
     <link rel="stylesheet" href="css/buttons.css">
     <link rel="stylesheet" href="css/sections.css">
     <link rel="stylesheet" href="css/future.css">
     <link rel="stylesheet" href="css/footer.css">
+    
+    <!-- Inline styles for toggle button -->
+    <style>
+        .lang-toggle-btn {
+            padding: 8px 20px !important;
+            border-radius: 20px !important;
+            font-weight: 600 !important;
+            font-size: 14px !important;
+            cursor: pointer !important;
+            transition: all 0.3s ease !important;
+            min-width: 60px !important;
+            text-align: center !important;
+            outline: none !important;
+        }
+        
+        .lang-toggle-btn[data-current="en"] {
+            background-color: #2563EB !important;
+            color: #FFFFFF !important;
+            border: 2px solid #2563EB !important;
+        }
+        
+        .lang-toggle-btn[data-current="en"]:hover {
+            background-color: #1D4ED8 !important;
+            border-color: #1D4ED8 !important;
+        }
+        
+        .lang-toggle-btn[data-current="ko"] {
+            background-color: #FFFFFF !important;
+            color: #2563EB !important;
+            border: 2px solid #2563EB !important;
+        }
+        
+        .lang-toggle-btn[data-current="ko"]:hover {
+            background-color: #EFF6FF !important;
+        }
+    </style>
     
     <!-- Tailwind Custom Config -->
     <script>
@@ -45,6 +83,19 @@
             }
         }
     </script>
+    
+    <!-- Language Switcher Script (complete version) -->
+    <script src="js/language-complete.js?v=3"></script>
+    
+    <!-- Ensure English as default on first load -->
+    <script>
+        // 첫 방문자를 위해 영문 기본 설정 확인
+        if (!localStorage.getItem('languageInitialized')) {
+            localStorage.removeItem('selectedLanguage');
+            localStorage.setItem('selectedLanguage', 'en');
+            localStorage.setItem('languageInitialized', 'true');
+        }
+    </script>
 </head>
 <body class="font-pretendard">
     <!-- Header -->
@@ -56,12 +107,20 @@
                 </a>
             </div>
             <ul class="nav-links">
-                <li><a href="#features">기술특징</a></li>
-                <li><a href="#demo">시연영상</a></li>
-                <li><a href="#applications">적용분야</a></li>
-                <li><a href="#future">향후방향</a></li>
-                <li><a href="#contact">문의</a></li>
+                <li><a href="#features" data-lang="nav.features">Features</a></li>
+                <li><a href="#demo" data-lang="nav.demo">Live Demo</a></li>
+                <li><a href="#applications" data-lang="nav.applications">Applications</a></li>
+                <li><a href="#future" data-lang="nav.future">Future</a></li>
+                <li><a href="#contact" data-lang="nav.contact">Contact</a></li>
+                <li><a href="https://bluerobot.co.kr" target="_blank" data-lang="nav.homepage">Company Website</a></li>
             </ul>
+            
+            <!-- Language Toggle Button -->
+            <div class="language-toggle">
+                <button class="lang-toggle-btn" id="langToggle" data-current="en">
+                    <span class="lang-text">ENG</span>
+                </button>
+            </div>
         </nav>
     </header>
 
@@ -76,18 +135,17 @@
             <div class="product-logo">
                 <img src="assets/logo/Balancestage_BI.png" alt="BalanceStage" />
             </div>
-            <h1 class="text-5xl lg:text-6xl font-bold mb-6 text-white">
-                정렬이 쉬워지면,<br>제조는 달라집니다.
+            <h1 class="text-5xl lg:text-6xl font-bold mb-6 text-white" data-lang="hero.title">
+                Redesigning Alignment.<br>Transforming the Future of Manufacturing.
             </h1>
-            <p class="text-xl font-light mb-8 text-text-light leading-relaxed">
-                BalanceStage QuadAlign X는<br>
-                4개의 축(X, Y, Pitch, Roll)을 하나의 제어 동작으로 통합한 세계 최초의 고하중 동기 정렬 플랫폼입니다.<br><br>
-                정렬은 이제 수동 조작이 아닌 한 번의 동작으로 완성되는 지능형 공정입니다.
+            <p class="text-xl font-light mb-8 text-text-light leading-relaxed" data-lang="hero.subtitle">
+                BalanceStage QuadAlign X is the world's first high-load alignment platform unifying four axes (X, Y, Pitch, Roll) in a single control.<br><br>
+                Alignment is no longer for experts — with one command, anyone can achieve precision.
             </p>
             
             <div class="cta-buttons">
-                <a href="#demo" class="btn btn-primary">시연 영상 보기</a>
-                <a href="#features" class="btn btn-secondary">기술 요약 보기</a>
+                <a href="#demo" class="btn btn-primary" data-lang="hero.cta.primary">Watch Demo</a>
+                <a href="#features" class="btn btn-secondary" data-lang="hero.cta.secondary">View Tech Summary</a>
             </div>
         </div>
     </section>
@@ -95,75 +153,73 @@
     <section class="section problem-solution bg-white">
         <div class="container">
             <div class="section-nav light">#problem-solution</div>
-            <h2 class="text-4xl font-bold text-center mb-12 text-dark">
-                기존 정렬 시스템은 복잡했습니다.<br>우리는 정렬을 '플랫폼'으로 다시 설계했습니다.
+            <h2 class="text-4xl font-bold text-center mb-12 text-dark" data-lang="problemSolution.title">
+                Conventional alignment was complex.<br>We redesigned it as a platform.
             </h2>
-            <p class="text-xl font-light text-center mb-16 text-text-sub max-w-4xl mx-auto">
-                정밀 제조에서 가장 어려운 과제는 고하중 환경에서의 각도 정렬(Pitch/Roll)입니다.<br>
-                기존 방식은 복잡한 병렬 구조나 숙련자 중심의 반복 조정에 의존해 왔습니다.
+            <p class="text-xl font-light text-center mb-16 text-text-sub max-w-4xl mx-auto" data-lang="problemSolution.description">
+                The greatest challenge in precision manufacturing is angle alignment (Pitch/Roll) under high loads. Traditional methods relied on manual work and complex controls.
             </p>
             
             <div class="grid lg:grid-cols-2 gap-12 mt-12">
                 <div class="bg-gray-50 p-8 rounded-xl shadow-lg border-l-4 border-red-500">
                     <h3 class="text-xl font-semibold mb-4 text-dark flex items-center">
-                        <span class="text-red-500 mr-2">🔴</span> 기존 방식
+                        <span class="text-red-500 mr-2">🔴</span> <span data-lang="problemSolution.conventional.title">Conventional Methods</span>
                     </h3>
                     <ul class="space-y-3">
                         <li class="flex items-start text-text-sub">
                             <span class="text-red-500 mr-3 font-bold">×</span>
-                            복잡한 병렬 구조
+                            <span data-lang="problemSolution.conventional.items.0">Complex parallel structures</span>
                         </li>
                         <li class="flex items-start text-text-sub">
                             <span class="text-red-500 mr-3 font-bold">×</span>
-                            숙련자 중심의 반복 조정
+                            <span data-lang="problemSolution.conventional.items.1">Repeated adjustments by skilled operators</span>
                         </li>
                         <li class="flex items-start text-text-sub">
                             <span class="text-red-500 mr-3 font-bold">×</span>
-                            축 간 간섭으로 인한 오차
+                            <span data-lang="problemSolution.conventional.items.2">Errors from axis interference</span>
                         </li>
                         <li class="flex items-start text-text-sub">
                             <span class="text-red-500 mr-3 font-bold">×</span>
-                            긴 정렬 시간
+                            <span data-lang="problemSolution.conventional.items.3">Long alignment times</span>
                         </li>
                         <li class="flex items-start text-text-sub">
                             <span class="text-red-500 mr-3 font-bold">×</span>
-                            높은 학습 비용
+                            <span data-lang="problemSolution.conventional.items.4">High training costs</span>
                         </li>
                     </ul>
                 </div>
                 
                 <div class="bg-gray-50 p-8 rounded-xl shadow-lg border-l-4 border-green-500">
                     <h3 class="text-xl font-semibold mb-4 text-dark flex items-center">
-                        <span class="text-green-500 mr-2">🟢</span> QuadAlign X
+                        <span class="text-green-500 mr-2">🟢</span> <span data-lang="problemSolution.quadAlign.title">QuadAlign X</span>
                     </h3>
                     <ul class="space-y-3">
                         <li class="flex items-start text-text-sub">
                             <span class="text-green-500 mr-3 font-bold">✓</span>
-                            4축 통합 제어 플랫폼
+                            <span data-lang="problemSolution.quadAlign.items.0">4-axis integrated control platform</span>
                         </li>
                         <li class="flex items-start text-text-sub">
                             <span class="text-green-500 mr-3 font-bold">✓</span>
-                            자동 정렬 및 보정
+                            <span data-lang="problemSolution.quadAlign.items.1">Automated alignment and correction</span>
                         </li>
                         <li class="flex items-start text-text-sub">
                             <span class="text-green-500 mr-3 font-bold">✓</span>
-                            실시간 간섭 보정 알고리즘
+                            <span data-lang="problemSolution.quadAlign.items.2">Real-time interference compensation algorithm</span>
                         </li>
                         <li class="flex items-start text-text-sub">
                             <span class="text-green-500 mr-3 font-bold">✓</span>
-                            5초 이내 정렬 완료
+                            <span data-lang="problemSolution.quadAlign.items.3">Alignment completed within 2 seconds</span>
                         </li>
                         <li class="flex items-start text-text-sub">
                             <span class="text-green-500 mr-3 font-bold">✓</span>
-                            직관적인 조작
+                            <span data-lang="problemSolution.quadAlign.items.4">Intuitive operation</span>
                         </li>
                     </ul>
                 </div>
             </div>
             
-            <div class="text-center mt-12 text-xl font-semibold text-primary">
-                BalanceStage QuadAlign X는 4개의 축을 단일 플랫폼에서 동기화하고,<br>
-                축 간 간섭을 실시간으로 보정하여, 정렬의 개념 자체를 바꾸었습니다.
+            <div class="text-center mt-12 text-xl font-semibold text-primary" data-lang="problemSolution.subtitle">
+                QuadAlign X synchronizes four axes on a single platform, redefining alignment through real-time correction.
             </div>
         </div>
     </section>
@@ -172,56 +228,56 @@
     <section id="features" class="section bg-dark">
         <div class="container">
             <div class="section-nav dark">#core-features</div>
-            <h2 class="text-4xl font-bold text-center mb-6 text-white">더한 것이 아니라, 묶었습니다.</h2>
-            <p class="text-xl font-light text-center mb-16 text-text-light">정렬의 복잡함을 하나의 제어로 바꾼 것입니다.</p>
+            <h2 class="text-4xl font-bold text-center mb-6 text-white" data-lang="features.title">Not added, but unified</h2>
+            <p class="text-xl font-light text-center mb-16 text-text-light" data-lang="features.subtitle">Transforming alignment complexity into one simple control</p>
             
             <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8 mt-12">
                 <div class="bg-dark-light p-8 rounded-xl shadow-xl border border-dark-lighter hover:bg-dark-lighter transition-all duration-200 hover:-translate-y-2">
                     <div class="w-16 h-16 bg-primary rounded-xl flex items-center justify-center mb-4 text-white">
                         <i data-lucide="zap" class="w-8 h-8"></i>
                     </div>
-                    <h3 class="text-xl font-semibold mb-4 text-white">4축 통합 제어 플랫폼</h3>
-                    <p class="text-text-light font-light">X, Y, Pitch, Roll 4개 축을 하나의 제어 시스템으로 통합하여 복잡한 정렬 과정을 단순화했습니다.</p>
+                    <h3 class="text-xl font-semibold mb-4 text-white" data-lang="features.cards.0.title">4-Axis Integrated Control Platform</h3>
+                    <p class="text-text-light font-light" data-lang="features.cards.0.description">By unifying four axes — X, Y, Pitch, and Roll — into a single control system, we have simplified the complex alignment process.</p>
                 </div>
                 
                 <div class="bg-dark-light p-8 rounded-xl shadow-xl border border-dark-lighter hover:bg-dark-lighter transition-all duration-200 hover:-translate-y-2">
                     <div class="w-16 h-16 bg-primary rounded-xl flex items-center justify-center mb-4 text-white">
                         <i data-lucide="target" class="w-8 h-8"></i>
                     </div>
-                    <h3 class="text-xl font-semibold mb-4 text-white">±5μm 정밀도</h3>
-                    <p class="text-text-light font-light">100kg 고하중 환경에서도 ±5μm 수준의 정밀도를 유지하며 반복성을 보장합니다.</p>
+                    <h3 class="text-xl font-semibold mb-4 text-white" data-lang="features.cards.1.title">2μm Precision</h3>
+                    <p class="text-text-light font-light" data-lang="features.cards.1.description">Maintains 2μm-level parallel precision and guarantees repeatability even under heavy loads of several hundred kilograms.</p>
                 </div>
                 
                 <div class="bg-dark-light p-8 rounded-xl shadow-xl border border-dark-lighter hover:bg-dark-lighter transition-all duration-200 hover:-translate-y-2">
                     <div class="w-16 h-16 bg-primary rounded-xl flex items-center justify-center mb-4 text-white">
                         <i data-lucide="timer" class="w-8 h-8"></i>
                     </div>
-                    <h3 class="text-xl font-semibold mb-4 text-white">5초 이내 보정 완료</h3>
-                    <p class="text-text-light font-light">정렬 조건을 자동으로 감지하고 5초 이내에 모든 축의 보정을 동시에 완료합니다.</p>
+                    <h3 class="text-xl font-semibold mb-4 text-white" data-lang="features.cards.2.title">Correction Within 2 Seconds</h3>
+                    <p class="text-text-light font-light" data-lang="features.cards.2.description">Automatically detects alignment conditions and completes simultaneous correction of all axes within 2 seconds.</p>
                 </div>
                 
                 <div class="bg-dark-light p-8 rounded-xl shadow-xl border border-dark-lighter hover:bg-dark-lighter transition-all duration-200 hover:-translate-y-2">
                     <div class="w-16 h-16 bg-primary rounded-xl flex items-center justify-center mb-4 text-white">
                         <i data-lucide="brain" class="w-8 h-8"></i>
                     </div>
-                    <h3 class="text-xl font-semibold mb-4 text-white">실시간 간섭 보정</h3>
-                    <p class="text-text-light font-light">축 간 간섭을 실시간으로 감지하고 보정하는 내장 알고리즘으로 정확한 정렬을 보장합니다.</p>
+                    <h3 class="text-xl font-semibold mb-4 text-white" data-lang="features.cards.3.title">Real-Time Interference Compensation</h3>
+                    <p class="text-text-light font-light" data-lang="features.cards.3.description">An embedded algorithm detects and corrects axis interference in real time, ensuring precise alignment.</p>
                 </div>
                 
                 <div class="bg-dark-light p-8 rounded-xl shadow-xl border border-dark-lighter hover:bg-dark-lighter transition-all duration-200 hover:-translate-y-2">
                     <div class="w-16 h-16 bg-primary rounded-xl flex items-center justify-center mb-4 text-white">
                         <i data-lucide="refresh-cw" class="w-8 h-8"></i>
                     </div>
-                    <h3 class="text-xl font-semibold mb-4 text-white">확장 가능한 구조</h3>
-                    <p class="text-text-light font-light">Z축, Yaw축으로 확장 가능한 진화형 구조로 미래의 요구사항에 대응합니다.</p>
+                    <h3 class="text-xl font-semibold mb-4 text-white" data-lang="features.cards.4.title">Scalable Architecture</h3>
+                    <p class="text-text-light font-light" data-lang="features.cards.4.description">An evolutionary design expandable to the Z and Yaw axes, ready to meet future requirements.</p>
                 </div>
                 
                 <div class="bg-dark-light p-8 rounded-xl shadow-xl border border-dark-lighter hover:bg-dark-lighter transition-all duration-200 hover:-translate-y-2">
                     <div class="w-16 h-16 bg-primary rounded-xl flex items-center justify-center mb-4 text-white">
                         <i data-lucide="gem" class="w-8 h-8"></i>
                     </div>
-                    <h3 class="text-xl font-semibold mb-4 text-white">세계 최초 기술</h3>
-                    <p class="text-text-light font-light">4축 동기 정렬 플랫폼으로서 세계 최초의 혁신적인 기술을 구현했습니다.</p>
+                    <h3 class="text-xl font-semibold mb-4 text-white" data-lang="features.cards.5.title">World's First Technology</h3>
+                    <p class="text-text-light font-light" data-lang="features.cards.5.description">As the world's first four-axis synchronized alignment platform, it delivers truly innovative technology.</p>
                 </div>
             </div>
         </div>
@@ -232,12 +288,12 @@
         <div class="container">
             <div class="demo-container">
                 <div class="section-nav light">#live-demo</div>
-                <h2 class="text-4xl font-bold text-center mb-6 text-dark">실시간 4축 정렬 시연</h2>
-                <p class="text-xl font-light text-center mb-16 text-text-sub max-w-4xl mx-auto">
-                    QuadAlign X는 대상물의 위치 오차를 실시간으로 감지하고<br>
-                    4개의 축을 자동으로 계산, 동시에 제어합니다.<br><br>
-                    이 과정은 반복 조정 없이 단 한 번의 명령으로 수행됩니다.<br>
-                    고하중 상태에서도 각도 축이 흔들리지 않도록 정밀도와 반복성을 유지합니다.
+                <h2 class="text-4xl font-bold text-center mb-6 text-dark" data-lang="liveDemo.title">Real-Time Four-Axis Alignment Demo</h2>
+                <p class="text-xl font-light text-center mb-16 text-text-sub max-w-4xl mx-auto" data-lang="liveDemo.description">
+                    QuadAlign X detects positional errors in real time and automatically calculates and controls all four axes simultaneously.
+                </p>
+                <p class="text-xl font-light text-center mb-16 text-text-sub max-w-4xl mx-auto" data-lang="liveDemo.details">
+                    This process is completed with a single command — without repeated adjustments — while maintaining precision and repeatability even under high loads, ensuring angle axes remain stable.
                 </p>
                 
                 <div class="demo-video-container mx-auto">
@@ -264,10 +320,9 @@
     <section id="applications" class="section bg-dark">
         <div class="container">
             <div class="section-nav dark">#applications</div>
-            <h2 class="text-4xl font-bold text-center mb-6 text-white">적용 분야</h2>
-            <p class="text-xl font-light text-center mb-16 text-text-light max-w-3xl mx-auto">
-                "정렬을 쉽게 만든다는 것,<br>
-                그것은 곧 제조 품질과 효율 전체를 바꾸는 일입니다."
+            <h2 class="text-4xl font-bold text-center mb-6 text-white" data-lang="applications.title">Applications</h2>
+            <p class="text-xl font-light text-center mb-16 text-text-light max-w-3xl mx-auto" data-lang="applications.subtitle">
+                Making alignment simple means transforming the entire quality and efficiency of manufacturing.
             </p>
             
             <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-8 mt-12">
@@ -275,32 +330,32 @@
                     <div class="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-4 text-white">
                         <i data-lucide="cpu" class="w-10 h-10"></i>
                     </div>
-                    <h3 class="text-lg font-semibold mb-4 text-white">반도체 패키징 및 조립</h3>
-                    <p class="text-text-light font-light">정밀한 칩 정렬과 본딩 공정에서 탁월한 성능을 발휘합니다.</p>
+                    <h3 class="text-lg font-semibold mb-4 text-white" data-lang="applications.cards.0.title">Semiconductor Packaging & Assembly</h3>
+                    <p class="text-text-light font-light" data-lang="applications.cards.0.description">Delivers outstanding performance in precise chip alignment and bonding processes.</p>
                 </div>
                 
                 <div class="bg-dark-light p-8 rounded-xl shadow-xl border border-dark-lighter hover:bg-dark-lighter transition-all duration-200 hover:-translate-y-2 text-center">
                     <div class="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-4 text-white">
                         <i data-lucide="focus" class="w-10 h-10"></i>
                     </div>
-                    <h3 class="text-lg font-semibold mb-4 text-white">광학 렌즈 및 센서 정렬</h3>
-                    <p class="text-text-light font-light">고정밀 광학 시스템의 렌즈와 센서 정렬 작업을 자동화합니다.</p>
+                    <h3 class="text-lg font-semibold mb-4 text-white" data-lang="applications.cards.1.title">Optical Lens & Sensor Alignment</h3>
+                    <p class="text-text-light font-light" data-lang="applications.cards.1.description">Automates the alignment of lenses and sensors in high-precision optical systems.</p>
                 </div>
                 
                 <div class="bg-dark-light p-8 rounded-xl shadow-xl border border-dark-lighter hover:bg-dark-lighter transition-all duration-200 hover:-translate-y-2 text-center">
                     <div class="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-4 text-white">
                         <i data-lucide="settings" class="w-10 h-10"></i>
                     </div>
-                    <h3 class="text-lg font-semibold mb-4 text-white">정밀 로봇 캘리브레이션</h3>
-                    <p class="text-text-light font-light">산업용 로봇의 정밀 캘리브레이션과 위치 보정을 지원합니다.</p>
+                    <h3 class="text-lg font-semibold mb-4 text-white" data-lang="applications.cards.2.title">Precision Robot Calibration</h3>
+                    <p class="text-text-light font-light" data-lang="applications.cards.2.description">Supports precise calibration and positional correction of industrial robots.</p>
                 </div>
                 
                 <div class="bg-dark-light p-8 rounded-xl shadow-xl border border-dark-lighter hover:bg-dark-lighter transition-all duration-200 hover:-translate-y-2 text-center">
                     <div class="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-4 text-white">
                         <i data-lucide="rocket" class="w-10 h-10"></i>
                     </div>
-                    <h3 class="text-lg font-semibold mb-4 text-white">우주/방산 정밀 조립</h3>
-                    <p class="text-text-light font-light">극도의 정밀도가 요구되는 우주항공 및 방산 분야 자동화에 적용됩니다.</p>
+                    <h3 class="text-lg font-semibold mb-4 text-white" data-lang="applications.cards.3.title">Aerospace & Defense Precision Assembly</h3>
+                    <p class="text-text-light font-light" data-lang="applications.cards.3.description">Applied to automation in aerospace and defense fields where extreme precision is required.</p>
                 </div>
             </div>
         </div>
@@ -310,10 +365,9 @@
     <section id="future" class="section future-solutions bg-white">
         <div class="container">
             <div class="section-nav light">#future-solutions</div>
-            <h2 class="text-4xl font-bold text-center mb-6 text-dark">향후 방향: 지능형 정렬 생태계</h2>
-            <p class="text-xl font-light text-center mb-16 text-text-sub max-w-4xl mx-auto">
-                QuadAlign X를 넘어, 정렬의 모든 과정을 자동화하고 최적화하는<br>
-                통합 솔루션으로 진화합니다.
+            <h2 class="text-4xl font-bold text-center mb-6 text-dark" data-lang="intelligentEcosystem.title">Intelligent Alignment Ecosystem</h2>
+            <p class="text-xl font-light text-center mb-16 text-text-sub max-w-4xl mx-auto" data-lang="intelligentEcosystem.subtitle">
+                Beyond QuadAlign X, it evolves into an integrated solution that automates and optimizes the entire alignment process.
             </p>
             
             <div class="bg-gray-50 rounded-3xl p-12 shadow-xl border border-gray-200">
@@ -321,59 +375,58 @@
                     <div class="w-20 h-20 bg-primary rounded-3xl flex items-center justify-center mr-8 text-white">
                         <i data-lucide="brain" class="w-10 h-10"></i>
                     </div>
-                    <h3 class="text-2xl font-bold text-dark">정렬 레시피 관리 및 최적화 앱</h3>
+                    <h3 class="text-2xl font-bold text-dark" data-lang="intelligentEcosystem.app.title">Smart App for Alignment Recipe Management</h3>
                 </div>
                 
                 <div class="grid lg:grid-cols-3 gap-8">
                     <div class="space-y-4">
                         <h4 class="text-lg font-semibold text-dark flex items-center">
                             <i data-lucide="wrench" class="w-5 h-5 mr-2 text-primary"></i>
-                            <span>서비스 내용</span>
+                            <span data-lang="intelligentEcosystem.app.serviceFeatures.title">Service Features</span>
                         </h4>
-                        <p class="text-text-sub font-light leading-relaxed">
-                            • 제품별 최적 정렬 조건 '레시피' 저장<br>
-                            • 앱에서 원터치 레시피 적용<br>
-                            • AI 기반 최적 레시피 제안<br>
-                            • 과거 데이터 분석 및 성능 개선
-                        </p>
+                        <ul class="text-text-sub font-light leading-relaxed list-disc list-inside">
+                            <li data-lang="intelligentEcosystem.app.serviceFeatures.items.0">Save optimal alignment "recipes" for each product</li>
+                            <li data-lang="intelligentEcosystem.app.serviceFeatures.items.1">Apply recipes with one touch through the app</li>
+                            <li data-lang="intelligentEcosystem.app.serviceFeatures.items.2">AI-powered suggestions for optimal recipes</li>
+                            <li data-lang="intelligentEcosystem.app.serviceFeatures.items.3">Analyze past data and enhance performance</li>
+                        </ul>
                     </div>
                     
                     <div class="space-y-4">
                         <h4 class="text-lg font-semibold text-dark flex items-center">
                             <i data-lucide="zap" class="w-5 h-5 mr-2 text-primary"></i>
-                            <span>핵심 강점</span>
+                            <span data-lang="intelligentEcosystem.app.keyStrengths.title">Key Strengths</span>
                         </h4>
-                        <p class="text-text-sub font-light leading-relaxed">
-                            • 표준화된 고품질 정렬 보장<br>
-                            • 신제품 도입 시간 단축<br>
-                            • 작업자 숙련도 무관<br>
-                            • 지속적 성능 최적화
-                        </p>
+                        <ul class="text-text-sub font-light leading-relaxed list-disc list-inside">
+                            <li data-lang="intelligentEcosystem.app.keyStrengths.items.0">Ensures standardized, high-quality alignment</li>
+                            <li data-lang="intelligentEcosystem.app.keyStrengths.items.1">Shortens time-to-market for new products</li>
+                            <li data-lang="intelligentEcosystem.app.keyStrengths.items.2">Independent of operator skill level</li>
+                            <li data-lang="intelligentEcosystem.app.keyStrengths.items.3">Continuous performance optimization</li>
+                        </ul>
                     </div>
                     
                     <div class="space-y-4">
                         <h4 class="text-lg font-semibold text-dark flex items-center">
                             <i data-lucide="target" class="w-5 h-5 mr-2 text-primary"></i>
-                            <span>필요성</span>
+                            <span data-lang="intelligentEcosystem.app.need.title">Need</span>
                         </h4>
-                        <p class="text-text-sub font-light leading-relaxed">
-                            • 공정 반복성 및 일관성 확보<br>
-                            • 생산 품질 표준화<br>
-                            • 작업 효율 극대화<br>
-                            • 숙련 작업자 의존도 탈피
-                        </p>
+                        <ul class="text-text-sub font-light leading-relaxed list-disc list-inside">
+                            <li data-lang="intelligentEcosystem.app.need.items.0">Secure process repeatability and consistency</li>
+                            <li data-lang="intelligentEcosystem.app.need.items.1">Standardize production quality</li>
+                            <li data-lang="intelligentEcosystem.app.need.items.2">Maximize operational efficiency</li>
+                            <li data-lang="intelligentEcosystem.app.need.items.3">Reduce dependence on skilled operators</li>
+                        </ul>
                     </div>
                 </div>
                 
                 <div class="mt-12 text-center bg-white p-8 rounded-2xl shadow-lg">
                     <h3 class="text-xl font-bold text-dark mb-4 flex items-center justify-center">
                         <i data-lucide="rocket" class="w-6 h-6 mr-2 text-primary"></i>
-                        <span>비전: 완전 자율 정렬 시스템</span>
+                        <span data-lang="intelligentEcosystem.vision">Vision: Fully Autonomous Alignment System</span>
                     </h3>
-                    <p class="text-text-sub font-light leading-relaxed">
-                        <span class="text-primary font-semibold">장비 → 플랫폼 → 생태계</span><br>
-                        정렬의 모든 과정을 자동화하고 최적화하는<br>
-                        <span class="text-primary font-semibold">완전 자율 정렬 시스템</span> 구축
+                    <p class="text-text-sub font-light leading-relaxed" data-lang="intelligentEcosystem.visionDetail">
+                        equipment → platform → ecosystem<br>
+                        Building a fully autonomous alignment system that automates and optimizes every step of the process.
                     </p>
                 </div>
             </div>
@@ -385,21 +438,13 @@
         <div class="container">
             <div class="roadmap-content">
                 <div class="section-nav light">#roadmap</div>
-                <h2 class="text-4xl font-bold text-center mb-6 text-dark">2축에서 시작해, 정렬 제어의 기준을 다시 쓰다.</h2>
+                <h2 class="text-4xl font-bold text-center mb-6 text-dark" data-lang="roadmap.title">From Two Axes to a New Standard in Alignment Control</h2>
                 <div class="max-w-4xl mx-auto text-center">
-                    <p class="text-xl font-light leading-relaxed text-text-sub">
-                        QuadAlign X는 2축 기반 정렬기의 확장이 아닙니다.<br><br>
-                        
-                        Pitch/Roll을 중심으로 다축 간 간섭을 실시간으로 보정하며,<br>
-                        제어 구조 자체를 혁신한 통합형 플랫폼입니다.<br><br>
-                        
-                        블루로봇은 이를 기반으로 Z축과 Yaw축까지 통합해<br>
-                        6축 지능 정렬 시스템으로 진화하고 있습니다.<br><br>
-                        
-                        <span class="text-primary font-semibold text-xl">
-                            정렬은 이제 점과 점을 맞추는 일이 아니라,<br>
-                            공정을 재설계하는 기술이 되어야 합니다.
-                        </span>
+                    <p class="text-xl font-light leading-relaxed text-text-sub" data-lang="roadmap.content">
+                        QuadAlign X is not a two-axis extension. Centered on Pitch and Roll, it revolutionizes control with real-time multi-axis compensation. BlueRobot is evolving this into a six-axis intelligent alignment system.
+                    </p>
+                    <p class="text-primary font-semibold text-xl mt-8" data-lang="roadmap.vision">
+                        Alignment is no longer about matching points — it must become the technology that redesigns the process.
                     </p>
                 </div>
             </div>
@@ -412,16 +457,15 @@
             <div class="company-content">
                 <div class="section-nav dark">#company-vision</div>
                 <img src="assets/logo/Bluerobot_CI.png" alt="BlueRobot" class="company-logo mx-auto mb-8 w-40" />
-                <h2 class="text-4xl font-bold text-center mb-6 text-white">
-                    복잡한 기술을 단순하게,<br>정밀한 기술을 누구나 쓰게.
+                <h2 class="text-4xl font-bold text-center mb-6 text-white" data-lang="companyVision.title">
+                    Making complex technology simple.<br>Making precision technology accessible to everyone.
                 </h2>
                 <div class="max-w-3xl mx-auto text-center">
-                    <p class="text-xl font-light leading-relaxed text-text-light">
-                        블루로봇은 정렬 기술을 특정 장비의 영역이 아니라<br>
-                        누구나 접근 가능한 기술 플랫폼으로 만듭니다.<br><br>
-                        
-                        기존의 기계 중심 기술에서 벗어나,<br>
-                        제어 중심, 알고리즘 중심 정렬 시대를 여는 기업입니다.
+                    <p class="text-xl font-light leading-relaxed text-text-light" data-lang="companyVision.description">
+                        BlueRobot transforms alignment technology from the domain of specific equipment into an open, accessible technology platform.
+                    </p>
+                    <p class="text-xl font-light leading-relaxed text-text-light mt-4" data-lang="companyVision.mission">
+                        We move beyond machine-centered methods to lead a new era of alignment driven by control and algorithms.
                     </p>
                 </div>
             </div>
@@ -434,10 +478,11 @@
             <!-- Left Brand Section -->
             <div class="footer-brand">
                 <img src="assets/logo/Bluerobot_CI.png" alt="BlueRobot" class="company-logo">
-                <p class="footer-tagline">정렬이 쉬워지면, 제조는 달라집니다.</p>
+                <p class="footer-tagline" data-lang="contact.tagline">Redesigning Alignment. Transforming the Future of Manufacturing.</p>
                 <div class="footer-address">
-                    세종특별자치시 조치원읍 세종로 2296<br>
-                    (세종창업키움센터) 308호<br>
+                    <span data-lang="contact.address.line1">#308, Sejong Startup Nurturing Center</span><br>
+                    <span data-lang="contact.address.line2">2296 Sejong-ro, Jochiwon-eup</span><br>
+                    <span data-lang="contact.address.line3">Sejong Special Self-Governing City</span><br>
                     <a href="https://bluerobot.co.kr/" target="_blank" class="text-accent hover:text-white transition-colors mt-2 inline-block">bluerobot.co.kr</a>
                 </div>
             </div>
@@ -445,22 +490,21 @@
             <!-- Right Navigation -->
             <div class="footer-nav">
                 <div class="footer-nav-column">
-                    <h4>제품 정보</h4>
+                    <h4 data-lang="contact.navigation.productInfo">Product Information</h4>
                     <ul>
-                        <li><a href="#features">기술 특징</a></li>
-                        <li><a href="#applications">적용 분야</a></li>
-                        <li><a href="#demo">시연 영상</a></li>
-                        <li><a href="#roadmap">기술 로드맵</a></li>
+                        <li><a href="#features" data-lang="contact.navigation.features">Technical Features</a></li>
+                        <li><a href="#applications" data-lang="contact.navigation.applications">Applications</a></li>
+                        <li><a href="#demo" data-lang="contact.navigation.demo">Demo Video</a></li>
+                        <li><a href="#roadmap" data-lang="contact.navigation.roadmap">Technology Roadmap</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-nav-column">
-                    <h4>자료 및 문의</h4>
+                    <h4 data-lang="contact.resources.title">Resources & Inquiries</h4>
                     <ul>
-                        <li><a href="#" onclick="downloadBrochure()">기술 브로셔 PDF</a></li>
-                        <li><a href="#" onclick="requestEvaluation()">CES 평가자료 ZIP</a></li>
-                        <li><a href="mailto:ces@bluerobot.co.kr">이메일 문의</a></li>
-                        <li><a href="https://bluerobot.co.kr/company/" target="_blank">회사 소개</a></li>
+                        <li><a href="#" onclick="downloadBrochure()" data-lang="contact.resources.brochure">Technical Brochure (PDF)</a></li>
+                        <li><a href="mailto:ces@bluerobot.co.kr" data-lang="contact.resources.email">Email Inquiry</a></li>
+                        <li><a href="https://bluerobot.co.kr/company/" target="_blank" data-lang="contact.resources.profile">Company Profile</a></li>
                     </ul>
                 </div>
             </div>
