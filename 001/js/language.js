@@ -41,16 +41,9 @@ class LanguageSwitcher {
 
   async loadTranslations() {
     try {
-      // 절대 경로 대신 상대 경로 사용
       const [koData, enData] = await Promise.all([
-        fetch('/lang/ko.json').then(r => {
-          if (!r.ok) throw new Error('Failed to load ko.json');
-          return r.json();
-        }),
-        fetch('/lang/en.json').then(r => {
-          if (!r.ok) throw new Error('Failed to load en.json');
-          return r.json();
-        })
+        fetch('./lang/ko.json').then(r => r.json()),
+        fetch('./lang/en.json').then(r => r.json())
       ]);
       
       this.translations = {
@@ -61,47 +54,6 @@ class LanguageSwitcher {
       console.log('Translations loaded successfully');
     } catch (error) {
       console.error('Failed to load translations:', error);
-      console.log('Using inline translations as fallback');
-      
-      // 에러 시 인라인 번역 사용
-      this.translations = {
-        en: {
-          nav: {
-            features: "Features",
-            demo: "Live Demo",
-            applications: "Applications",
-            future: "Future",
-            contact: "Contact",
-            homepage: "Company Website"
-          },
-          hero: {
-            title: "Redesigning Alignment.<br>Transforming the Future of Manufacturing.",
-            subtitle: "BalanceStage QuadAlign X is the world's first high-load alignment platform.",
-            cta: {
-              primary: "Watch Demo",
-              secondary: "View Tech Summary"
-            }
-          }
-        },
-        ko: {
-          nav: {
-            features: "기술특징",
-            demo: "시연영상",
-            applications: "적용분야",
-            future: "향후방향",
-            contact: "문의",
-            homepage: "회사 홈페이지"
-          },
-          hero: {
-            title: "정렬이 쉬워지면,<br>제조는 달라집니다.",
-            subtitle: "BalanceStage QuadAlign X는 세계 최초 4축 통합 정렬 플랫폼입니다.",
-            cta: {
-              primary: "시연 영상 보기",
-              secondary: "기술 요약 보기"
-            }
-          }
-        }
-      };
     }
   }
   applyLanguage(lang) {
