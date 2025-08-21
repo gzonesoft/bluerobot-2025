@@ -54,7 +54,40 @@
     height: auto;
     margin-bottom: 1.5rem;
     filter: brightness(0) invert(1); /* 로고를 흰색으로 변환 */
-    display: block; /* 좌측 정렬 */
+    display: block;
+}
+
+/* Desktop Only - Left align logo and text */
+@media (min-width: 1024px) {
+    .footer-brand {
+        align-items: flex-start; /* 좌측 정렬 */
+    }
+    
+    .footer-brand .company-logo {
+        margin-left: 0;
+        margin-right: auto;
+    }
+    
+    .footer-tagline,
+    .footer-address {
+        text-align: left;
+    }
+}
+
+/* Mobile/Tablet - Center align */
+@media (max-width: 1023px) {
+    .footer-brand {
+        align-items: center; /* 중앙 정렬 */
+    }
+    
+    .footer-brand .company-logo {
+        margin: 0 auto 1.5rem;
+    }
+    
+    .footer-tagline,
+    .footer-address {
+        text-align: center;
+    }
 }
 
 .footer-tagline {

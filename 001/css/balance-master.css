@@ -1,0 +1,33 @@
+/* BalanceMaster PC Image Styles */
+.balance-master-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 0;
+}
+
+.balance-master-img {
+    width: 100%;
+    max-width: 1000px;
+    height: auto;
+    /* 배경과 그림자 제거 */
+    background: none;
+    box-shadow: none;
+    border-radius: 0;
+    transition: transform 0.3s ease;
+}
+
+.balance-master-img:hover {
+    transform: scale(1.02);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .balance-master-container {
+        padding: 1rem 0;
+    }
+    
+    .balance-master-img {
+        max-width: 100%;
+    }
+}

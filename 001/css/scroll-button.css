@@ -1,0 +1,110 @@
+/* Floating Scroll to Top Button */
+.scroll-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;  /* left를 right로 변경 */
+    width: 56px;
+    height: 56px;
+    background-color: #FFFFFF;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25),
+                0 5px 15px rgba(0, 0, 0, 0.2),
+                0 2px 8px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 999;
+}
+
+.scroll-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.scroll-to-top:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3),
+                0 8px 20px rgba(0, 0, 0, 0.25),
+                0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.scroll-to-top:active {
+    transform: translateY(-1px);
+}
+
+.scroll-icon {
+    width: 24px;
+    height: 24px;
+    color: #5E6A70;
+    stroke-width: 2.5;
+}
+
+/* Tablet Responsive */
+@media (max-width: 1024px) {
+    .scroll-to-top {
+        width: 52px;
+        height: 52px;
+        bottom: 25px;
+        right: 25px;  /* left를 right로 변경 */
+    }
+    
+    .scroll-icon {
+        width: 22px;
+        height: 22px;
+    }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .scroll-to-top {
+        width: 48px;
+        height: 48px;
+        bottom: 20px;
+        right: 20px;  /* left를 right로 변경 */
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.22),
+                    0 4px 12px rgba(0, 0, 0, 0.18),
+                    0 2px 6px rgba(0, 0, 0, 0.12);
+    }
+    
+    .scroll-icon {
+        width: 20px;
+        height: 20px;
+        stroke-width: 2;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .scroll-to-top {
+        width: 44px;
+        height: 44px;
+        bottom: 15px;
+        right: 15px;  /* left를 right로 변경 */
+    }
+    
+    .scroll-icon {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+/* Animation for button appearance */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.scroll-to-top.visible {
+    animation: fadeInUp 0.3s ease;
+}
