@@ -49,6 +49,12 @@
     flex-direction: column;
 }
 
+/* Left Brand Section */
+.footer-brand {
+    display: flex;
+    flex-direction: column;
+}
+
 .footer-brand .company-logo {
     width: 180px;
     height: auto;
@@ -65,7 +71,7 @@
     
     .footer-brand .company-logo {
         margin-left: 0;
-        margin-right: auto;
+        margin-right: 0; /* auto 제거 */
     }
     
     .footer-tagline,
@@ -78,15 +84,19 @@
 @media (max-width: 1023px) {
     .footer-brand {
         align-items: center; /* 중앙 정렬 */
+        text-align: center;
     }
     
     .footer-brand .company-logo {
-        margin: 0 auto 1.5rem;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 1.5rem;
     }
     
     .footer-tagline,
     .footer-address {
         text-align: center;
+        width: 100%;
     }
 }
 

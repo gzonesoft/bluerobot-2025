@@ -44,11 +44,20 @@
     object-fit: contain;
 }
 
-/* 호버시 스케일 효과만 */
-.mockup-screen:hover img {
-    transform: scale(1.05);
-    filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.2)) 
-            drop-shadow(0 15px 30px rgba(0, 0, 0, 0.15));
+/* 호버시 스케일 효과만 - 데스크톱만 */
+@media (min-width: 769px) {
+    .mockup-screen:hover img {
+        transform: scale(1.05);
+        filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.2)) 
+                drop-shadow(0 15px 30px rgba(0, 0, 0, 0.15));
+    }
+}
+
+/* 모바일에서는 호버 효과 없음 */
+@media (max-width: 768px) {
+    .mockup-screen:hover img {
+        transform: none;
+    }
 }
 
 /* Animation states - 아래에서 위로 */
@@ -131,6 +140,13 @@
         max-width: 85vw;
     }
     
+    /* 모바일에서 배경과 그림자 제거 */
+    .mockup-screen img {
+        background: none !important;
+        filter: none !important; /* drop-shadow 제거 */
+        box-shadow: none !important;
+    }
+    
     /* 모바일에서도 아래에서 위로 */
     .screen-1,
     .screen-2,
@@ -153,6 +169,13 @@
 @media (max-width: 480px) {
     .mockup-screen {
         width: 240px;
+    }
+    
+    /* 작은 모바일에서도 배경과 그림자 제거 */
+    .mockup-screen img {
+        background: none !important;
+        filter: none !important;
+        box-shadow: none !important;
     }
 }
 
