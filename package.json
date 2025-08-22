@@ -1,0 +1,20 @@
+{
+  "name": "bluerobot-2025",
+  "version": "1.0.0",
+  "description": "블루로봇(BlueRobot)의 BalanceStage QuadAlign X 제품 관련 프로젝트 통합 저장소입니다.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cssnano-cli": "^1.0.5",
+    "purgecss": "^7.0.2",
+    "terser": "^5.43.1"
+  }
+}
