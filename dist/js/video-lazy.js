@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
   const video = document.querySelector('.hero-video');
   if (video) {
-    video.setAttribute('poster', 'images/hero-poster.webp');
     setTimeout(() => {
       const source = video.querySelector('source');
       if (source) {
