@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BalanceStage QuadAlign X - BlueRobot</title>
+    <meta name="description" content="World's first 4-axis integrated alignment platform">
+    <meta name="keywords" content="alignment system, 4-axis control, precision manufacturing, BlueRobot">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="css/main.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="css/main.min.css"></noscript>
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    
+    <!-- Critical CSS inlined -->
+    <style>
+        /* Critical CSS - Hero Section Only */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Pretendard', -apple-system, sans-serif; overflow-x: hidden; }
+        .header { position: fixed; top: 0; width: 100%; z-index: 1000; background: rgba(0,0,0,0.9); padding: 1rem 2rem; }
+        .header-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { height: 40px; }
+        .nav-menu { display: flex; gap: 2rem; list-style: none; }
+        .nav-menu a { color: white; text-decoration: none; }
+        .hero-section { position: relative; height: 100vh; overflow: hidden; background: #000; }
+        .hero-video { position: absolute; width: 100%; height: 100%; object-fit: cover; }
+        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3)); }
+        .hero-content { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: white; padding: 2rem; }
+        .hero-title { font-size: clamp(2rem, 5vw, 4rem); font-weight: 800; margin-bottom: 1.5rem; }
+        .hero-subtitle { font-size: clamp(1rem, 2vw, 1.5rem); margin-bottom: 2rem; opacity: 0.9; max-width: 800px; }
+        .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+        .btn-primary { background: #2563EB; color: white; padding: 1rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s; }
+        .btn-secondary { background: transparent; color: white; border: 2px solid white; padding: 1rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s; }
+        
+        /* Language toggle styles */
+        .lang-toggle-btn {
+            padding: 8px 20px !important;
+            border-radius: 20px !important;
+            font-weight: 600 !important;
+            font-size: 14px !important;
+            cursor: pointer !important;
+            transition: all 0.3s ease !important;
+            min-width: 60px !important;
+            text-align: center !important;
+            outline: none !important;
+        }
+        
+        .lang-toggle-btn[data-current="en"] {
+            background-color: #2563EB !important;
+            color: #FFFFFF !important;
+            border: 2px solid #2563EB !important;
+        }
+        
+        .lang-toggle-btn[data-current="en"]:hover {
+            background-color: #1D4ED8 !important;
+            border-color: #1D4ED8 !important;
+        }
+        
+        .lang-toggle-btn[data-current="ko"] {
+            background-color: #FFFFFF !important;
+            color: #2563EB !important;
+            border: 2px solid #2563EB !important;
+        }
+        
+        .lang-toggle-btn[data-current="ko"]:hover {
+            background-color: #EFF6FF !important;
+        }
+    </style>
+    
+    <!-- Tailwind Custom Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563EB',
+                        secondary: '#DBEAFE',
+                        accent: '#38BDF8',
+                        dark: '#0F172A',
+                        'dark-light': '#1E293B',
+                        'dark-lighter': '#334155',
+                        'text-main': '#0F172A',
+                        'text-sub': '#64748B',
+                        'text-light': '#94A3B8'
+                    },
+                    fontFamily: {
+                        'pretendard': ['Pretendard', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Optimized JavaScript -->
+    <script src="js/main.min.js"></script>
+    <script src="js/video-lazy.min.js"></script>
+    <script src="js/language-complete.js?v=3"></script>
+    
+    <!-- Ensure English as default on first load -->
+    <script>
+        // 첫 방문자를 위해 영문 기본 설정 확인
+        if (!localStorage.getItem('languageInitialized')) {
+            localStorage.removeItem('selectedLanguage');
+            localStorage.setItem('selectedLanguage', 'en');
+            localStorage.setItem('languageInitialized', 'true');
+        }
+    </script>
+</head>
+<body class="font-pretendard">
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">
+                <a href="#introduction">
+                    <picture>
+                        <source srcset="images/logo/Bluerobot_CI.webp" type="image/webp">
+                        <img src="images/logo/Bluerobot_CI.png" alt="BlueRobot" />
+                    </picture>
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#features" data-lang="nav.features">Features</a></li>
+                <li><a href="#demo" data-lang="nav.demo">Live Demo</a></li>
+                <li><a href="#applications" data-lang="nav.applications">Applications</a></li>
+                <li><a href="#future" data-lang="nav.future">Future</a></li>
+                <li><a href="#contact" data-lang="nav.contact">Contact</a></li>
+                <li><a href="https://bluerobot.co.kr" target="_blank" data-lang="nav.homepage">Company Website</a></li>
+            </ul>
+            
+            <!-- Language Toggle Button -->
+            <div class="language-toggle">
+                <button class="lang-toggle-btn" id="langToggle" data-current="en">
+                    <span class="lang-text">ENG</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="introduction" class="hero">
+        <video class="hero-video" muted loop playsinline data-lazy>
+            <source src="video/Herosection.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="hero-content">
+            <div class="section-nav dark">#introduction</div>
+            <div class="product-logo">
+                <picture>
+                    <source srcset="images/logo/Balancestage_BI.webp" type="image/webp">
+                    <img src="images/logo/Balancestage_BI.png" alt="BalanceStage" />
+                </picture>
+            </div>
+            <h1 class="text-5xl lg:text-6xl font-bold mb-6 text-white" data-lang="hero.title">
+                Redesigning Alignment.<br>Transforming the Future of Manufacturing.
+            </h1>
+            <p class="text-xl font-light mb-8 text-text-light leading-relaxed" data-lang="hero.subtitle">
+                BalanceStage QuadAlign X is the world's first high-load alignment platform unifying four axes (X, Y, Pitch, Roll) in a single control.<br><br>
+                Alignment is no longer for experts — with one command, anyone can achieve precision.
+            </p>
+            
+            <div class="cta-buttons">
+                <a href="#demo" class="btn btn-primary" data-lang="hero.cta.primary">Watch Demo</a>
+                <a href="#features" class="btn btn-secondary" data-lang="hero.cta.secondary">View Tech Summary</a>
+            </div>
+        </div>
+    </section>
+    <!-- Problem & Solution -->
+    <section class="section problem-solution bg-white" id="problem-solution">
+        <div class="container">
+            <div class="section-nav light">#problem-solution</div>
+            <h2 class="text-4xl font-bold text-center mb-12 text-dark" data-lang="problemSolution.title">
+                Conventional alignment was complex.<br>We redesigned it as a platform.
+            </h2>
+            <p class="text-xl font-light text-center mb-16 text-text-sub max-w-4xl mx-auto" data-lang="problemSolution.description">
+                The greatest challenge in precision manufacturing is angle alignment (Pitch/Roll) under high loads. Traditional methods relied on manual work and complex controls.
+            </p>
+            
+            <!-- BalanceMaster PC Image -->
+            <div class="balance-master-container mb-16">
+                <img src="images/BalanceMaster(pc).png" alt="BalanceMaster PC Interface" class="balance-master-img" />
+            </div>
+            
+            <!-- Existing comparison cards -->
+            <div class="grid lg:grid-cols-2 gap-12 mt-12">
+                <div class="bg-gray-50 p-8 rounded-xl shadow-lg border-l-4 border-red-500">
+                    <h3 class="text-xl font-semibold mb-4 text-dark flex items-center">
+                        <span class="text-red-500 mr-2">🔴</span> <span data-lang="problemSolution.conventional.title">Conventional Methods</span>
+                    </h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start text-text-sub">
+                            <span class="text-red-500 mr-3 font-bold">×</span>
+                            <span data-lang="problemSolution.conventional.items.0">Complex parallel structures</span>
+                        </li>
+                        <li class="flex items-start text-text-sub">
+                            <span class="text-red-500 mr-3 font-bold">×</span>
+                            <span data-lang="problemSolution.conventional.items.1">Repeated adjustments by skilled operators</span>
+                        </li>
+                        <li class="flex items-start text-text-sub">
+                            <span class="text-red-500 mr-3 font-bold">×</span>
+                            <span data-lang="problemSolution.conventional.items.2">Errors from axis interference</span>
+                        </li>
+                        <li class="flex items-start text-text-sub">
+                            <span class="text-red-500 mr-3 font-bold">×</span>
+                            <span data-lang="problemSolution.conventional.items.3">Long alignment times</span>
+                        </li>
+                        <li class="flex items-start text-text-sub">
+                            <span class="text-red-500 mr-3 font-bold">×</span>
+                            <span data-lang="problemSolution.conventional.items.4">High training costs</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-gray-50 p-8 rounded-xl shadow-lg border-l-4 border-green-500">
+                    <h3 class="text-xl font-semibold mb-4 text-dark flex items-center">
+                        <span class="text-green-500 mr-2">🟢</span> <span data-lang="problemSolution.quadAlign.title">QuadAlign X</span>
+                    </h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start text-text-sub">
+                            <span class="text-green-500 mr-3 font-bold">✓</span>
+                            <span data-lang="problemSolution.quadAlign.items.0">4-axis integrated control platform</span>
+                        </li>
+                        <li class="flex items-start text-text-sub">
+                            <span class="text-green-500 mr-3 font-bold">✓</span>
+                            <span data-lang="problemSolution.quadAlign.items.1">Automated alignment and correction</span>
+                        </li>
+                        <li class="flex items-start text-text-sub">
+                            <span class="text-green-500 mr-3 font-bold">✓</span>
+                            <span data-lang="problemSolution.quadAlign.items.2">Real-time interference compensation algorithm</span>
+                        </li>
+                        <li class="flex items-start text-text-sub">
+                            <span class="text-green-500 mr-3 font-bold">✓</span>
+                            <span data-lang="problemSolution.quadAlign.items.3">Alignment completed within 2 seconds</span>
+                        </li>
+                        <li class="flex items-start text-text-sub">
+                            <span class="text-green-500 mr-3 font-bold">✓</span>
+                            <span data-lang="problemSolution.quadAlign.items.4">Intuitive operation</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12 text-xl font-semibold text-primary" data-lang="problemSolution.subtitle">
+                QuadAlign X synchronizes four axes on a single platform, redefining alignment through real-time correction.
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="section bg-dark">
+        <div class="container">
+            <div class="section-nav dark">#core-features</div>
+            <h2 class="text-4xl font-bold text-center mb-6 text-white" data-lang="features.title">Not added, but unified</h2>
+            <p class="text-xl font-light text-center mb-16 text-text-light" data-lang="features.subtitle">Transforming alignment complexity into one simple control</p>
+            
+            <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8 mt-12">
+                <div class="bg-dark-light p-8 rounded-xl shadow-xl border border-dark-lighter hover:bg-dark-lighter transition-all duration-200 hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-primary rounded-xl flex items-center justify-center mb-4 text-white">
+                        <i data-lucide="zap" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-white" data-lang="features.cards.0.title">4-Axis Integrated Control Platform</h3>
+                    <p class="text-text-light font-light" data-lang="features.cards.0.description">By unifying four axes — X, Y, Pitch, and Roll — into a single control system, we have simplified the complex alignment process.</p>
+                </div>
+                
+                <div class="bg-dark-light p-8 rounded-xl shadow-xl border border-dark-lighter hover:bg-dark-lighter transition-all duration-200 hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-primary rounded-xl flex items-center justify-center mb-4 text-white">
+                        <i data-lucide="target" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-white" data-lang="features.cards.1.title">2μm Precision</h3>
+                    <p class="text-text-light font-light" data-lang="features.cards.1.description">Maintains 2μm-level parallel precision and guarantees repeatability even under heavy loads of several hundred kilograms.</p>
+                </div>
+                
+                <div class="bg-dark-light p-8 rounded-xl shadow-xl border border-dark-lighter hover:bg-dark-lighter transition-all duration-200 hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-primary rounded-xl flex items-center justify-center mb-4 text-white">
+                        <i data-lucide="timer" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-white" data-lang="features.cards.2.title">Correction Within 2 Seconds</h3>
+                    <p class="text-text-light font-light" data-lang="features.cards.2.description">Automatically detects alignment conditions and completes simultaneous correction of all axes within 2 seconds.</p>
+                </div>
+                
+                <div class="bg-dark-light p-8 rounded-xl shadow-xl border border-dark-lighter hover:bg-dark-lighter transition-all duration-200 hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-primary rounded-xl flex items-center justify-center mb-4 text-white">
+                        <i data-lucide="brain" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-white" data-lang="features.cards.3.title">Real-Time Interference Compensation</h3>
+                    <p class="text-text-light font-light" data-lang="features.cards.3.description">An embedded algorithm detects and corrects axis interference in real time, ensuring precise alignment.</p>
+                </div>
+                
+                <div class="bg-dark-light p-8 rounded-xl shadow-xl border border-dark-lighter hover:bg-dark-lighter transition-all duration-200 hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-primary rounded-xl flex items-center justify-center mb-4 text-white">
+                        <i data-lucide="refresh-cw" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-white" data-lang="features.cards.4.title">Scalable Architecture</h3>
+                    <p class="text-text-light font-light" data-lang="features.cards.4.description">An evolutionary design expandable to the Z and Yaw axes, ready to meet future requirements.</p>
+                </div>
+                
+                <div class="bg-dark-light p-8 rounded-xl shadow-xl border border-dark-lighter hover:bg-dark-lighter transition-all duration-200 hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-primary rounded-xl flex items-center justify-center mb-4 text-white">
+                        <i data-lucide="gem" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-white" data-lang="features.cards.5.title">World's First Technology</h3>
+                    <p class="text-text-light font-light" data-lang="features.cards.5.description">As the world's first four-axis synchronized alignment platform, it delivers truly innovative technology.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section id="demo" class="section demo-section bg-white">
+        <div class="container">
+            <div class="demo-container">
+                <div class="section-nav light">#live-demo</div>
+                <h2 class="text-4xl font-bold text-center mb-6 text-dark" data-lang="liveDemo.title">Real-Time Four-Axis Alignment Demo</h2>
+                <p class="text-xl font-light text-center mb-16 text-text-sub max-w-4xl mx-auto" data-lang="liveDemo.description">
+                    QuadAlign X detects positional errors in real time and automatically calculates and controls all four axes simultaneously.
+                </p>
+                <p class="text-xl font-light text-center mb-16 text-text-sub max-w-4xl mx-auto" data-lang="liveDemo.details">
+                    This process is completed with a single command — without repeated adjustments — while maintaining precision and repeatability even under high loads, ensuring angle axes remain stable.
+                </p>
+                
+                <div class="demo-video-container mx-auto">
+                    <iframe 
+                        width="800" 
+                        height="450" 
+                        src="https://www.youtube.com/embed/XC4XlrpPWVI" 
+                        title="BalanceStage QuadAlign X 시연 영상" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        allowfullscreen
+                        class="rounded-lg shadow-2xl">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Applications -->
+    <section id="applications" class="section bg-dark">
+        <div class="container">
+            <div class="section-nav dark">#applications</div>
+            <h2 class="text-4xl font-bold text-center mb-6 text-white" data-lang="applications.title">Applications</h2>
+            <p class="text-xl font-light text-center mb-16 text-text-light max-w-3xl mx-auto" data-lang="applications.subtitle">
+                Making alignment simple means transforming the entire quality and efficiency of manufacturing.
+            </p>
+            
+            <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-8 mt-12">
+                <div class="bg-dark-light p-8 rounded-xl shadow-xl border border-dark-lighter hover:bg-dark-lighter transition-all duration-200 hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-primary rounded-xl flex items-center justify-center mb-4 text-white">
+                        <i data-lucide="cpu" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-white" data-lang="applications.cards.0.title">Semiconductor Packaging & Assembly</h3>
+                    <p class="text-text-light font-light" data-lang="applications.cards.0.description">Delivers outstanding performance in precise chip alignment and bonding processes.</p>
+                </div>
+                
+                <div class="bg-dark-light p-8 rounded-xl shadow-xl border border-dark-lighter hover:bg-dark-lighter transition-all duration-200 hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-primary rounded-xl flex items-center justify-center mb-4 text-white">
+                        <i data-lucide="focus" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-white" data-lang="applications.cards.1.title">Optical Lens & Sensor Alignment</h3>
+                    <p class="text-text-light font-light" data-lang="applications.cards.1.description">Automates the alignment of lenses and sensors in high-precision optical systems.</p>
+                </div>
+                
+                <div class="bg-dark-light p-8 rounded-xl shadow-xl border border-dark-lighter hover:bg-dark-lighter transition-all duration-200 hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-primary rounded-xl flex items-center justify-center mb-4 text-white">
+                        <i data-lucide="settings" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-white" data-lang="applications.cards.2.title">Precision Robot Calibration</h3>
+                    <p class="text-text-light font-light" data-lang="applications.cards.2.description">Supports precise calibration and positional correction of industrial robots.</p>
+                </div>
+                
+                <div class="bg-dark-light p-8 rounded-xl shadow-xl border border-dark-lighter hover:bg-dark-lighter transition-all duration-200 hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-primary rounded-xl flex items-center justify-center mb-4 text-white">
+                        <i data-lucide="rocket" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-white" data-lang="applications.cards.3.title">Aerospace & Defense Precision Assembly</h3>
+                    <p class="text-text-light font-light" data-lang="applications.cards.3.description">Applied to automation in aerospace and defense fields where extreme precision is required.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Future Solutions -->
+    <section id="future" class="section future-solutions bg-white">
+        <div class="container">
+            <div class="section-nav light">#future-solutions</div>
+            <h2 class="text-4xl font-bold text-center mb-4 text-dark" data-lang="intelligentEcosystem.title">Intelligent Alignment Ecosystem</h2>
+            <p class="text-xl font-light text-center mb-4 text-text-sub max-w-4xl mx-auto" data-lang="intelligentEcosystem.subtitle">
+                Beyond QuadAlign X, it evolves into an integrated solution that automates and optimizes the entire alignment process.
+            </p>
+            
+            <!-- App Mockup Images -->
+            <div class="app-mockups-container mb-16">
+                <div class="app-mockups">
+                    <div class="mockup-screen screen-1" data-screen="1">
+                        <img src="images/Splash_Screen1.png" alt="QuadAlign App Screen 1" />
+                    </div>
+                    <div class="mockup-screen screen-2" data-screen="2">
+                        <img src="images/Axis_Screen2.png" alt="QuadAlign App Screen 2" />
+                    </div>
+                    <div class="mockup-screen screen-3" data-screen="3">
+                        <img src="images/Direction_Screen3.png" alt="QuadAlign App Screen 3" />
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-gray-50 rounded-3xl p-12 shadow-xl border border-gray-200">
+                <div class="flex items-center mb-8">
+                    <div class="w-20 h-20 bg-primary rounded-3xl flex items-center justify-center mr-8 text-white">
+                        <i data-lucide="brain" class="w-10 h-10"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-dark" data-lang="intelligentEcosystem.app.title">Smart App for Alignment Recipe Management</h3>
+                </div>
+                
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <div class="space-y-4">
+                        <h4 class="text-lg font-semibold text-dark flex items-center">
+                            <i data-lucide="wrench" class="w-5 h-5 mr-2 text-primary"></i>
+                            <span data-lang="intelligentEcosystem.app.serviceFeatures.title">Service Features</span>
+                        </h4>
+                        <ul class="text-text-sub font-light leading-relaxed list-disc list-inside">
+                            <li data-lang="intelligentEcosystem.app.serviceFeatures.items.0">Save optimal alignment "recipes" for each product</li>
+                            <li data-lang="intelligentEcosystem.app.serviceFeatures.items.1">Apply recipes with one touch through the app</li>
+                            <li data-lang="intelligentEcosystem.app.serviceFeatures.items.2">AI-powered suggestions for optimal recipes</li>
+                            <li data-lang="intelligentEcosystem.app.serviceFeatures.items.3">Analyze past data and enhance performance</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <h4 class="text-lg font-semibold text-dark flex items-center">
+                            <i data-lucide="zap" class="w-5 h-5 mr-2 text-primary"></i>
+                            <span data-lang="intelligentEcosystem.app.keyStrengths.title">Key Strengths</span>
+                        </h4>
+                        <ul class="text-text-sub font-light leading-relaxed list-disc list-inside">
+                            <li data-lang="intelligentEcosystem.app.keyStrengths.items.0">Ensures standardized, high-quality alignment</li>
+                            <li data-lang="intelligentEcosystem.app.keyStrengths.items.1">Shortens time-to-market for new products</li>
+                            <li data-lang="intelligentEcosystem.app.keyStrengths.items.2">Independent of operator skill level</li>
+                            <li data-lang="intelligentEcosystem.app.keyStrengths.items.3">Continuous performance optimization</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <h4 class="text-lg font-semibold text-dark flex items-center">
+                            <i data-lucide="target" class="w-5 h-5 mr-2 text-primary"></i>
+                            <span data-lang="intelligentEcosystem.app.need.title">Need</span>
+                        </h4>
+                        <ul class="text-text-sub font-light leading-relaxed list-disc list-inside">
+                            <li data-lang="intelligentEcosystem.app.need.items.0">Secure process repeatability and consistency</li>
+                            <li data-lang="intelligentEcosystem.app.need.items.1">Standardize production quality</li>
+                            <li data-lang="intelligentEcosystem.app.need.items.2">Maximize operational efficiency</li>
+                            <li data-lang="intelligentEcosystem.app.need.items.3">Reduce dependence on skilled operators</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="mt-12 text-center bg-white p-8 rounded-2xl shadow-lg">
+                    <h3 class="text-xl font-bold text-dark mb-4 flex items-center justify-center">
+                        <i data-lucide="rocket" class="w-6 h-6 mr-2 text-primary"></i>
+                        <span data-lang="intelligentEcosystem.vision">Vision: Fully Autonomous Alignment System</span>
+                    </h3>
+                    <p class="text-text-sub font-light leading-relaxed" data-lang="intelligentEcosystem.visionDetail">
+                        equipment → platform → ecosystem<br>
+                        Building a fully autonomous alignment system that automates and optimizes every step of the process.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Roadmap -->
+    <section id="roadmap" class="section roadmap bg-white">
+        <div class="container">
+            <div class="roadmap-content">
+                <div class="section-nav light">#roadmap</div>
+                <h2 class="text-4xl font-bold text-center mb-6 text-dark" data-lang="roadmap.title">From Two Axes to a New Standard in Alignment Control</h2>
+                <div class="max-w-4xl mx-auto text-center">
+                    <p class="text-xl font-light leading-relaxed text-text-sub" data-lang="roadmap.content">
+                        QuadAlign X is not a two-axis extension. Centered on Pitch and Roll, it revolutionizes control with real-time multi-axis compensation. BlueRobot is evolving this into a six-axis intelligent alignment system.
+                    </p>
+                    <p class="text-primary font-semibold text-xl mt-8" data-lang="roadmap.vision">
+                        Alignment is no longer about matching points — it must become the technology that redesigns the process.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Company -->
+    <section class="section company bg-dark">
+        <div class="container">
+            <div class="company-content">
+                <div class="section-nav dark">#company-vision</div>
+                <img src="images/logo/Bluerobot_CI.png" alt="BlueRobot" class="company-logo mx-auto mb-8" style="width: 220px; height: auto;" />
+                <h2 class="text-4xl font-bold text-center mb-6 text-white" data-lang="companyVision.title">
+                    Making complex technology simple.<br>Making precision technology accessible to everyone.
+                </h2>
+                <div class="max-w-3xl mx-auto text-center">
+                    <p class="text-xl font-light leading-relaxed text-text-light" data-lang="companyVision.description">
+                        BlueRobot transforms alignment technology from the domain of specific equipment into an open, accessible technology platform.
+                    </p>
+                    <p class="text-xl font-light leading-relaxed text-text-light mt-4" data-lang="companyVision.mission">
+                        We move beyond machine-centered methods to lead a new era of alignment driven by control and algorithms.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <footer id="contact" class="footer-contact">
+        <div class="footer-grid">
+            <!-- Left Brand Section -->
+            <div class="footer-brand">
+                <img src="images/logo/Bluerobot_CI.png" alt="BlueRobot" class="company-logo">
+                <p class="footer-tagline" data-lang="contact.tagline">Redesigning Alignment. Transforming the Future of Manufacturing.</p>
+                <div class="footer-address">
+                    <span data-lang="contact.address.line1">#308, Sejong Startup Nurturing Center</span><br>
+                    <span data-lang="contact.address.line2">2296 Sejong-ro, Jochiwon-eup</span><br>
+                    <span data-lang="contact.address.line3">Sejong Special Self-Governing City</span><br>
+                    <a href="https://bluerobot.co.kr/" target="_blank" class="text-accent hover:text-white transition-colors mt-2 inline-block">bluerobot.co.kr</a>
+                </div>
+            </div>
+            
+            <!-- Right Navigation -->
+            <div class="footer-nav">
+                <div class="footer-nav-column">
+                    <h4 data-lang="contact.navigation.productInfo">Product Information</h4>
+                    <ul>
+                        <li><a href="#features" data-lang="contact.navigation.features">Technical Features</a></li>
+                        <li><a href="#applications" data-lang="contact.navigation.applications">Applications</a></li>
+                        <li><a href="#demo" data-lang="contact.navigation.demo">Demo Video</a></li>
+                        <li><a href="#roadmap" data-lang="contact.navigation.roadmap">Technology Roadmap</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-nav-column">
+                    <h4 data-lang="contact.resources.title">Resources & Inquiries</h4>
+                    <ul>
+                        <li><a href="#" onclick="downloadBrochure()" data-lang="contact.resources.brochure">Technical Brochure (PDF)</a></li>
+                        <li><a href="mailto:ces@bluerobot.co.kr" data-lang="contact.resources.email">Email Inquiry</a></li>
+                        <li><a href="https://bluerobot.co.kr/company/" target="_blank" data-lang="contact.resources.profile">Company Profile</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Social Media & Copyright -->
+        <div class="footer-social">
+            <div class="social-icons">
+                <a href="https://kr.linkedin.com/in/jeongmi-choi-343556368" class="social-icon" target="_blank">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="https://www.youtube.com/@bluerobot2022" class="social-icon" target="_blank">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <a href="https://bluerobot.co.kr/" class="social-icon" target="_blank">
+                    <i class="fas fa-globe"></i>
+                </a>
+                <a href="mailto:ces@bluerobot.co.kr" class="social-icon">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+            
+            <div class="footer-copyright">
+                © BlueRobot Inc. 2025. All rights reserved.
+                <div class="footer-links">
+                    <a href="/privacy">개인정보처리방침</a>
+                    <a href="/terms">이용약관</a>
+                    <a href="/press">보도자료</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <!-- Floating Scroll to Top Button -->
+    <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+        <i data-lucide="arrow-up" class="scroll-icon"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+    <script src="js/mockup-animations.js"></script>
+    <script src="js/scroll-button.js"></script>
+    
+    <!-- Initialize Lucide Icons -->
+    <script>
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>
